@@ -6,18 +6,18 @@ using namespace std;
 
 int main() {
 	
-    int luku, n = 1, h = 1;
+    int luku, n = 1, h = 1; // Esitellaan muuttujat: syotte = luku, seka n ja h joiden avulla maaritetaan silmukan pituus
 
     cout << "Anna luku: ";
     cin >> luku;
 
-    while (n <= luku)
+    while (n <= luku) // Silmukka toistetaan "luku" kertaa
     {
-        cout << "Hello World!" << endl;
+        cout << "Hello World!" << endl; // Tulostetaan jonka jalkeen lisataan tarkistuslukuun yksi
         n++;
     }
 
-    while (h <= 15)
+    while (h <= 15) // Silmukka tulostaa lukujonon 1-15, koska h on alussa 1 ja siihen tulee + 1 joka silmukan lopussa
     {
         cout<< h++ << " ";
     }
