@@ -1,6 +1,6 @@
-#include<iostream> // Linkataan mukaan sy�te- ja tulostusk�skyt
+#include<iostream> // Linkataan mukaan syote- ja tulostuskaskyt
 
-using namespace std; // Otetaan nimiavaruus k�ytt��n
+using namespace std; // Otetaan nimiavaruus kayttaan
 
 int main() {
 	char op;

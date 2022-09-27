@@ -1,4 +1,4 @@
-// Huomionarvoista lisätehtävien numeroinnissa: Tämä on ensimmäinen lisätehtävä jonka olen tehnyt. Kuitenkin tehtävä on jo neljäs tunneilla vastaan tullut.
+// Huomionarvoista lisatehtavien numeroinnissa: Tama on ensimmainen lisatehtava jonka olen tehnyt. Kuitenkin tehtava on jo neljas tunneilla vastaan tullut.
 #include<iostream>
 #include<cmath>
 

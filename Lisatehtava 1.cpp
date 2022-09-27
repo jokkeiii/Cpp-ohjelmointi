@@ -1,28 +1,28 @@
-// HUOM! Kyseinen tehtävä kesken!
+// HUOM! Kyseinen tehtava kesken!
 
-#include<iostream> // Linkataan mukaan sy�te- ja tulostusk�skyt
+#include<iostream> // Linkataan mukaan syote- ja tulostuskaskyt
 
-using namespace std; // Otetaan nimiavaruus k�ytt��n
+using namespace std; // Otetaan nimiavaruus kayttaan
 
 void ala_ohjelma() {
 
-	//Esitell��n muuttujat
+	//Esitellaan muuttujat
 
 	int lainan_maara, laina_aika;
 	float korko, korko_kertoimena, tasa_era;
 
-	//Kysyt��n muuttujaan arvo
-	cout << "Anna lainan m��r� (euroissa): ";
+	//Kysytaan muuttujaan arvo
+	cout << "Anna lainan maara (euroissa): ";
 	cin >> lainan_maara;
 
-	//Kysyt��n toiseen muuttujaan arvo
+	//Kysytaan toiseen muuttujaan arvo
 	cout << "Anna lainan korkoprosentti: ";
 	cin >> korko;
 
-	// Muunnetaan korkoprosentti, jotta voidaan k�ytt�� sit� laskuissa
+	// Muunnetaan korkoprosentti, jotta voidaan kayttaa sita laskuissa
 	// korko_kertoimena = korko / 100;
 
-	//Kysyt��n kolmanteen muuttujaan arvo
+	//Kysytaan kolmanteen muuttujaan arvo
 	cout << "Anna lainan takaisinmaksuaika: ";
 	cin >> laina_aika;
 
