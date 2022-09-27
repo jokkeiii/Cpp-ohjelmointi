@@ -1,10 +1,10 @@
-#include<iostream> // Linkataan mukaan sy�te- ja tulostusk�skyt
+#include<iostream> // Linkataan mukaan syote- ja tulostuskaskyt
 
-using namespace std; // Otetaan nimiavaruus k�ytt��n
+using namespace std; // Otetaan nimiavaruus kayttoon
 
 int main() {
 	float letter_weight;
-	cout << "Anna kirjeen paino grammoina: "; // Kysyt��n muuttujaan arvo
+	cout << "Anna kirjeen paino grammoina: "; // Kysytaan muuttujaan arvo
 	cin >> letter_weight;
 
 	if (letter_weight <= 50)
@@ -37,7 +37,7 @@ int main() {
 
 	else
 	{
-		cout << "L�hetys on liian painava kirjeeksi!";
+		cout << "Lahetys on liian painava kirjeeksi!";
 	}
 
 	return 0;
