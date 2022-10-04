@@ -7,15 +7,14 @@ int main()
 	
 	float tyylipisteet = 0, tuomaripisteet;
 
-	do 
-	{
 		for (int i = 1; i < 6; i++)
 		{
-			cout << "Anna" << i << ". Tuomarin pisteet: ";
-			cin >> tuomaripisteet;
-
+			cout << "Anna " << i << ". Tuomarin pisteet: ";
+			cin >> tuomaripisteet; // Tassa kysytaan yksittaisen tuomarin pisteet
+			if (tuomaripisteet < 0 || tuomaripisteet > 20)
+				i--;
+			else
+				tyylipisteet += tuomaripisteet;
 		}
-	} while (true);
-
 	return 0;
 }
