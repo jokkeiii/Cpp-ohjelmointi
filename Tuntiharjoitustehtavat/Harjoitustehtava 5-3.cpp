@@ -14,6 +14,7 @@ int main() {
             cin >> n;
 
         } while (n > 0);
-	
+    cout << n;
+    
     return 0;
 }
