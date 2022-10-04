@@ -7,14 +7,7 @@ using std::cout;
 using std::cin;
 
 int main() {
-	int n = 0; 
-        do
-        {
-            cout << "anna yhteenlaskettavat luvut (kun haluat lopettaa laita luvuksi 0): ";
-            cin >> n;
-
-        } while (n > 0);
-    cout << n;
-    
+	
+        
     return 0;
 }
