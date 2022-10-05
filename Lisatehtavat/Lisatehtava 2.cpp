@@ -10,7 +10,7 @@ int main() {
 	float annettu_valuutta, muunnos, eur_usd, usd_eur, eur_gbp, gbp_eur, usd_gbp, gbp_usd;	// Esitellaan muuttujat syotteita varten
 	char syote_yksikko, muunnos_yksikko;	// Esitellaan muuttujat jaottelua varten
 
-	eur_usd = 0.9756;	// Asetetaan arvot muuttujiin
+	eur_usd = 0.9756;	// Kaytetyt arvot muunnoksiin
 	usd_eur = 1.0253;
 
 	eur_gbp = 0.8817;
@@ -20,10 +20,11 @@ int main() {
 	gbp_usd = 1.1064;
 
 	do{
-	cout << "Valitse muunnettavan valuutan yksikkoa merkitseva kirjain:\n(e = euro, d = usd, p = gbp):";
+	cout << "HUOM! Tuloksen yksikko ei voi olla sama kuin muunnettavan!:\n";
+	cout << "Valitse muunnettavan valuutan yksikkoa merkitseva kirjain:\n(e = euro, d = usd, p = gbp):\n";
 	cin >> syote_yksikko;	// Asetetaan kayttajan syote muuttujaan
 
-	cout << "Valitse yksikko muunnosta varten:\n(e = euro, d = usd, p = gbp)\nHUOM! Tuloksen yksikko ei voi olla sama kuin muunnettavan!:\n";
+	cout << "Valitse yksikko muunnosta varten:\n(e = euro, d = usd, p = gbp)\n";
 	cin >> muunnos_yksikko;	// Asetetaan kayttajan syote toiseen muuttujaan
 	}while (syote_yksikko == muunnos_yksikko);
 	
