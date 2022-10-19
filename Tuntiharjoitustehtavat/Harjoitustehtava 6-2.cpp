@@ -1,5 +1,5 @@
 // 6. Tunti Viope 6 - 2
-// Koodin toiminta selitettyna lyhyesti
+// Vapaasti putoavan kappaleen nopeus sekunneitain
 
 #include<iostream>
 
@@ -11,14 +11,18 @@ int main() {
     int sek;
     float tulos;
 
+    // Kysytään käyttäjältä syöte
     cout << "anna aika sekunneissa: ";
     cin >> sek;
 
-    cout << "Aika\tNopeus(km/h)";
+    cout << "Aika\tNopeus(km/h)" << endl;   
 
-    for (int i = 0; i <= sek; i++)
+    // Silmukalla tulostetaan ja lasketaan tulokset
+    // Silmukka toteutuu "sek" kertaa ja alkaa nollasta
+    for (int i = 0; i <= sek; i++) 
     {
-        tulos=
+        tulos = i * 9.81 * 3.6;
+        cout << i << "\t" << tulos << endl;
     }
     
 	
