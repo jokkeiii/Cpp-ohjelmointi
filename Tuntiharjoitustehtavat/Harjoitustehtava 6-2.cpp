@@ -11,7 +11,7 @@ int main() {
     int sek;
     float tulos;
 
-    // Kysytään käyttäjältä syöte
+    // Kysytaan kayttajalta syöte
     cout << "anna aika sekunneissa: ";
     cin >> sek;
 
