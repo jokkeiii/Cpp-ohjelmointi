@@ -20,15 +20,19 @@ int main() {
 	gbp_usd = 1.1064;
 
 	do{
-	cout << "HUOM! Tuloksen yksikko ei voi olla sama kuin muunnettavan!:\n";
-	cout << "Valitse muunnettavan valuutan yksikkoa merkitseva kirjain:\n(e = euro, d = usd, p = gbp):\n";
-	cin >> syote_yksikko;	// Asetetaan kayttajan syote muuttujaan
+		// Kysytaan 
+		cout << "HUOM! Tuloksen yksikko ei voi olla sama kuin muunnettavan!:\n";
+		cout << "Valitse muunnettavan valuutan yksikkoa merkitseva kirjain:\n(e = euro, d = usd, p = gbp):\n";
+		cin >> syote_yksikko;
 
-	cout << "Valitse yksikko muunnosta varten:\n(e = euro, d = usd, p = gbp)\n";
-	cin >> muunnos_yksikko;	// Asetetaan kayttajan syote toiseen muuttujaan
+		cout << "Valitse yksikko muunnosta varten:\n(e = euro, d = usd, p = gbp)\n";
+		cin >> muunnos_yksikko;	// Asetetaan kayttajan syote toiseen muuttujaan
 	}while (syote_yksikko == muunnos_yksikko);
 	
-	// if (syote_yksikko == 'e') {
-	//	cout << "Anna muunnettava luku euroissa:";	
-	// } 
+	if (syote_yksikko == 'e') {
+		cout << "Anna muunnettava luku euroissa:";
+		cin >> annettu_valuutta;
+			
+	}
+	 
 }
