@@ -25,6 +25,7 @@ int main() {
 }
 
 int palkka(int x) {
+    int tulos; 
 
     // Jos tunnit ovat normituntien rajoissa lasketaan peruspalkka
     if (x <= 40)
@@ -33,8 +34,9 @@ int palkka(int x) {
     }
     // Jos tunneissa on ylitoita lasketaan normipalkka ja lisataan tulokseen ylitoiden palkka
     else if (x > 40)
-    {
-        return 40 * 10 + (x - 40) * 15;
+    {   
+        tulos = 40 * 10 + (x - 40) * 15;
+        return tulos;
     }
 
 }
