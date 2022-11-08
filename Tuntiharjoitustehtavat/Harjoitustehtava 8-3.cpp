@@ -9,7 +9,13 @@ using std::endl;
 
 unsigned long Fibonacci(int x){
 
+    if((x==1)||(x==0)) {
+    
+        return(x);
+    }
 
+    // Jos x >= 2 lasketaan x-1 + x-2
+    return(Fibonacci(x-1)+Fibonacci(x-2));
 }
 
 
@@ -23,10 +29,12 @@ int main() {
     cin >> syote; 
     cout << endl; 
 
-    cout << "Fibonacci Sarja : "; 
+    cout << "Fibonnacci Sarja : "; 
 
-    for (size_t i = 0; i < syote; i++){
-        /* code */
+    for (int i = 0; i < syote; i++){
+        // 
+        fibonacci_num = Fibonacci(i); 
+        cout << " " << fibonacci_num;
     }
     
 
