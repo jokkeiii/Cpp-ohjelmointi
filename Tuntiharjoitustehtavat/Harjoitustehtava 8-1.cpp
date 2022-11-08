@@ -5,33 +5,38 @@
 
 using std::cout;
 using std::cin;
-using std::endl; 
+using std::endl;
 
-int KertomaFunktio(int);
-
-int main() {
+unsigned long KertomaFunktio(int num){
     
-    int luku, tulos;
+    // Muuttuja tulosta varten
+    unsigned long Kertoma = 1; 
 
+    // Looppi laskee kertoman syotteen kertaa
+    for (int i = 0; i < num; i++){
+
+        // Luku kertaa (i + 1) eli kertomaan lisataan 
+        Kertoma = Kertoma * (i + 1); 
+    }
+    
+    return Kertoma;
+}
+int main() {
+    setlocale(LC_ALL, "fi_FI");
+
+    // Muutujien esittely
+    int luku;
+    unsigned long tulos; 
+
+    // Syotteen kysyminen
     cout << "Anna kokonaisluku välille 0 - 16" << endl; 
     cin >> luku; 
 
-    // Jos tulos on 0 tulostetaan virhe
-    if (tulos == 0)
-    {
-        /* code */
-    }
-    
-    cout << "Luvun " << luku << " kertoma on " << tulos; 
-    
-    return 0;
-}
+    // Asetetaan aliohjelman tulos muuttujaan
+    tulos = KertomaFunktio(luku);
 
-int KertomaFunktio(int x){ 
-    // Jos x on negatiivinen tulostetaan 0
-    if (x < 0)
-    {
-        return 0;
-    }
-    
+    // Tulostetaan tekstit, luku ja tulos
+    cout << "Luvun " << luku << " kertoma on " << tulos << endl; 
+
+    return 0;
 }
