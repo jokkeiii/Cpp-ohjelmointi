@@ -7,7 +7,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-// Aliohjelma tulostaa "*" sademaara taulukon paikan luvun kertaa
+// Aliohjelma tulostaa * sademaara taulukon paikan luvun kertaa
 void tulostaTahtia( int n ){
     
     for (int i = 0; i < n; i++)
