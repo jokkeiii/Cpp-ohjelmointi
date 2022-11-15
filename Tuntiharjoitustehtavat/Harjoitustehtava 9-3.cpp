@@ -9,9 +9,21 @@ using std::endl;
 
 bool alkuluku(int n){
 
+    // Jos luku on alle 2, palautetaan false
     if (n < 2)
     {
         return false;
+    }
+
+    // Testataan luvun jakamista
+    for (int i = 2; i < n; i++)
+    {
+        // Jos jakojaannosta ei tule, palautetaan false
+        if (n % i == 0)
+        {
+            return false;
+        }
+        
     }
     
     return true;
