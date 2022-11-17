@@ -10,11 +10,8 @@ using std::endl;
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
-    int varaus;
-
-    cout << "Hei ja tervetuloa hotelliin! " << endl;
-    cout << endl << "Haluatko varata huoneen? 1 = kyllä, 0 = ei:";
-    cin >> varaus;
-
+    int huoneiden_lkm[300] = { 0 };
+    
+    
     return 0;
 }
