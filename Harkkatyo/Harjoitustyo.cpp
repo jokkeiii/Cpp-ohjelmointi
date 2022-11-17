@@ -19,7 +19,7 @@ using std::endl;
 
 int HuoneVaraus(int huone){
 
-
+    cout << endl << huone;
     
 }
 
@@ -34,7 +34,7 @@ int main() {
     cout << "Mitä haluaisitte tehdä?" << endl;
 
 
-    while (true)
+    do
     {
         
         cout << R"(Jos haluatte varata huoneen valitkaa " V " , jos haluatte poistua valitkaa " P " : )";
@@ -42,10 +42,14 @@ int main() {
 
         if (valikko == 'V' || valikko == 'v')
         {
-            HuoneenVaraus();
+            cout << "Minkä huoneen haluatte varata? (1-300) : ";
+            // Ei toimi!
+            cin << HuoneenVaraus();
         }
         
-    }
+    }while (valikko != 'P' || valikko != 'p')
+
+    
     
     
     return 0;
