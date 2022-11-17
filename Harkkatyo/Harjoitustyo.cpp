@@ -1,5 +1,5 @@
-// Harjoitustyö
-// Koodin toiminta selitettyna lyhyesti
+// Harjoitustyo
+// Hotellinvarausjarjestelma
 
 #include<iostream>
 
