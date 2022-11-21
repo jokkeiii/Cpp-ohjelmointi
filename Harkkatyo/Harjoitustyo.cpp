@@ -42,7 +42,7 @@ int main() {
         if (count < 299)
         {
             
-            cout << R"(Jos haluatte varata uuden huoneen valitkaa " V " , jos haluatte poistua valitkaa " P " : )" << endl;
+            cout << R"(Jos haluatte varata uuden huoneen valitkaa " V " , jos haluatte poistua valitkaa " X " : )" << endl;
             cin >> valikko; 
 
             // Tarkistetaan syote, jos V, suoritetaan varaus
@@ -107,22 +107,17 @@ int main() {
                 count++;
             }
             
-            // Syotteentarkastus poistumisessa ja valikko muuttujan asetus pikkukirjaimeksi, jotta while condition false mahdollinen toteuttaa
-            if (valikko == 'p' || valikko == 'P')
-            {
-                valikko = 'p';
-            }
         }
         else
         {
             cout << "Valitettavasti kaikki huoneemme on tällä hetkellä varattuina. " << endl << "Kiitos ja näkemiin! ";
 
-            valikko = 'p';
+            valikko = 'x';
         }
 
     // Tarkistetaan syote, jos p, poistutaan muuten jatketaan
     }
-    while (valikko != 'p'); 
+    while (!(valikko == 'x' || valikko == 'X')); 
 
     
     
