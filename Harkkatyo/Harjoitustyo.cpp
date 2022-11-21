@@ -2,28 +2,34 @@
 // Hotellinvarausjarjestelma
 
 #include<iostream>
+#include<iomanip>
+#include<string>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string; 
 
 /* TODO
 
-    Varauksen tallennus structina
-
     Huonevaraus omaksi funktioksi
+
+    Varauksen tallennus structina
     
 */
 
 // Funktioiden prototyypit
 
+// Vakiot
+const int HUONEIDEN_LKM = 300;
 
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
+    // varattava_huone ja varauksen kesto: syotetta varten
     int varattava_huone, varauksen_kesto, count = 0; 
-    int varatut_huoneet[300] = { 0 };
+    int varatut_huoneet[HUONEIDEN_LKM] = { 0 };
     char valikko;
 
     cout << "Tervetuloa!!" << endl;
