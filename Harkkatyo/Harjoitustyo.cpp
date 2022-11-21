@@ -9,11 +9,10 @@ using std::endl;
 
 /* TODO
 
-1. Huoneen varaaminen
+    Varauksen tallennus structina
 
-2. Varauksen hinta
-
-
+    Huonevaraus omaksi funktioksi
+    
 */
 
 // Funktioiden prototyypit
