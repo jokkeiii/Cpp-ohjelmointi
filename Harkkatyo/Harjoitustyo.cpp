@@ -19,16 +19,16 @@ using std::string;
 */
 
 // Funktioiden prototyypit
-void huoneVaraus();
 
 // Vakiot
 const int HUONEIDEN_LKM = 300;
+
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
     // varattava_huone ja varauksen kesto: syotetta varten
-    int varauksen_kesto, count = 0; 
+    int varattava_huone, varauksen_kesto, count = 0; 
     int varatut_huoneet[HUONEIDEN_LKM] = { 0 };
     char valikko;
 
@@ -48,7 +48,33 @@ int main() {
             // Tarkistetaan syote, jos V, suoritetaan varaus
             if (valikko == 'V' || valikko == 'v')
             {   
+                cout << "Minkä huoneen haluatte varata? (1-300) : ";
+                cin >> varattava_huone;
+
+                // TODO 
+                // Tee tasta funktio
                 
+                // Syotteen tarkistus valilla 1-300
+                if (varattava_huone >= 1 && varattava_huone <= 300)
+                {
+                    
+                    // Silmukka jolla tarkastetaan onko annettu huone jo varattu
+                    for (int i = 0; i < 300; i++)
+                    {
+                        // Jos huone on jo varattu kysytaan uusi huone
+                        if (varattava_huone == varatut_huoneet[i])
+                        {
+                            cout << "Huone " << varattava_huone << " on valitettavasti jo varattu." << endl; 
+
+                            cout << endl;
+
+                            cout << "Minkä huoneen haluatte varata? (1-300) : ";
+                            cin >> varattava_huone;
+                        }
+                        
+                    }
+                }
+
                 // Asetetaan varattu huone taulukkoon
                 varatut_huoneet[count] += varattava_huone;
 
@@ -93,37 +119,8 @@ int main() {
     }
     while (!(valikko == 'x' || valikko == 'X')); 
 
+    
+    
+    
     return 0;
-}
-
-void huoneVaraus(){
-    
-    int varattava_huone;
-
-    cout << "Minkä huoneen haluatte varata? (1-300) : ";
-    cin >> varattava_huone;
-
-    // TODO 
-    // Tee tasta funktio
-    
-    // Syotteen tarkistus valilla 1-300 
-    if (varattava_huone >= 1 && varattava_huone <= 300)
-    {
-        
-        // Silmukka jolla tarkastetaan onko annettu huone jo varattu
-        for (int i = 0; i < 300; i++)
-        {
-            // Jos huone on jo varattu kysytaan uusi huone
-            if (varattava_huone == varatut_huoneet[i])
-            {
-                cout << "Huone " << varattava_huone << " on valitettavasti jo varattu." << endl; 
-
-                cout << endl;
-
-                cout << "Minkä huoneen haluatte varata? (1-300) : ";
-                cin >> varattava_huone;
-            }
-            
-        }
-    }
 }
