@@ -14,21 +14,22 @@ using std::getline;
 
 /* TODO
 
-    Huonevaraus funktio
+    Majoituksen kesto funktioon
 
-    onkoHuoneVarattu funktio
+    
     
 */
 
 // Funktioiden prototyypit
 bool onkoHuoneVarattu(const HotelliVaraukset, int);
 HotelliVaraukset luoVaraus(HotelliVaraukset, int);
-
+void tulostaVaraus(const HotelliVaraukset);
 
 // Vakiot
 const int HUONEIDEN_LKM = 300;
 const int MIN_VARAUKSEN_KESTO = 0;
 const int MAX_VARAUKSEN_KESTO = 45;
+const int HINTA_PER_YO = 100;
 
 // Tietueet
 struct HotelliVaraukset
@@ -109,27 +110,28 @@ int main() {
 
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "count" tietueeseen
-HotelliVaraukset luoVaraus(HotelliVaraukset &tempVaraukset, int tempvarattava_huone){
-    
+HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
+    char fvalikko;
+
     // Asetetaan syotetty huone tietueeseen
-    tempVaraukset.huoneen_numero = tempvarattava_huone;
+    Varaukset.huoneen_numero = fvarattava_huone;
 
     // Tulostetaan kyseinen huone taulukosta ja kysytaan majoituksen kesto
-    cout << "Hienoa! Huone " << tempVaraukset.huoneen_numero << " on varattu teille. " << endl;
+    cout << "Hienoa! Huone " << Varaukset.huoneen_numero << " on varattu teille. " << endl;
     cout << endl;
 
     ajanvaraus:
 
     cout << "Kuinka monta yötä haluatte majoittua? ";
-    cin >> tempVaraukset.varauksen_kesto;
+    cin >> Varaukset.varauksen_kesto;
 
     // Jos alle nolla tai yli 45 kysytaan uudelleen
-    if (tempVaraukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
+    if (Varaukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
     {
         cout << "Varaamme huoneita vähintään yhdeksi yöksi. " << endl << endl;
         goto ajanvaraus;
 
-    } else if (tempVaraukset.varauksen_kesto > MAX_VARAUKSEN_KESTO)
+    } else if (Varaukset.varauksen_kesto > MAX_VARAUKSEN_KESTO)
     {
         cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
         goto ajanvaraus;
@@ -139,20 +141,38 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &tempVaraukset, int tempvarattava_hu
     nimenanto:
 
     cout << "Millä nimellä varaus tallennetaan? ";
-    getline (cin, tempVaraukset.varaajan_koko_nimi);
+    getline (cin, Varaukset.varaajan_koko_nimi);
 
-    cout << "Kiitoksia! Annoitte nimen: " << tempVaraukset.varaajan_koko_nimi << ". " << endl; 
+    nimisyote:
+
+    cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << ". " << endl; 
     cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl;
     cout << endl << ":";
-
-    return tempVaraukset;
+    cin >> fvalikko;
+    
+    switch (fvalikko)
+    {
+    case '1':
+        cout << "Hienoa!" << endl;
+        break;
+    case '2':
+        goto nimenanto;
+        break;
+    default:
+        cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
+        cout << endl;
+        goto nimisyote;
+        break;
+    }
+    return Varaukset;
 }
 
 
 // Funktio tarkistaa onko huone jo varattu
-bool onkoHuoneVarattu(const HotelliVaraukset &tempVaraukset, int tempvarattava_huone){
+bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone){
 
-    if (tempVaraukset.huoneen_numero == tempvarattava_huone)
+    // Jos huone on varattu palautetaan true
+    if (Varaukset.huoneen_numero == fvarattava_huone)
     {
         return true;
     }
@@ -162,4 +182,15 @@ bool onkoHuoneVarattu(const HotelliVaraukset &tempVaraukset, int tempvarattava_h
     }
     
     
+}
+
+// Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
+void tulostaVaraus(const HotelliVaraukset &Varaukset){
+
+    cout << "Tässä on syottämäsi varauksen tiedot" << endl << endl;
+    cout << "Varaajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
+    cout << "Varatun huoneen numero: " << Varaukset.huoneen_numero << endl;
+    cout << "Varauksen kesto: " << Varaukset.varauksen_kesto << " yötä." << endl;
+    // Lasketaan oiden maara * "HINTA_PER_YO"
+    cout << "Varauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa." << endl << endl;
 }
