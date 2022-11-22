@@ -14,9 +14,7 @@ using std::getline;
 
 /* TODO
 
-    Majoituksen kesto funktioon
-
-    
+    Nada
     
 */
 
@@ -54,8 +52,9 @@ int main() {
     // Valikko
     do{
 
-        cout << R"(#1 Varata uuden huoneen \n#0 Poistua ohjelmasta \n: )";
+        cout << "#1 Varata uuden huoneen " << endl << "#0 Poistua ohjelmasta " << endl << ": ";
         cin >> valikko;
+        cout << endl;
 
         switch (valikko)
         {
@@ -64,8 +63,9 @@ int main() {
             // Goto merkki 
             varaus:
 
-            cout << "Minkä huoneen haluatte varata? (1-300) : ";
+            cout << "Minkä huoneen haluatte varata? (1-300)" << endl << ": ";
             cin >> varattava_huone;
+            cout << endl; 
 
             // Silmukalla testataan jokaisen taulukon paikan tietue
             for (int i = 0; i < HUONEIDEN_LKM; i++)
@@ -125,8 +125,9 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
 
     ajanvaraus:
 
-    cout << "Kuinka monta yötä haluatte majoittua? ";
+    cout << "Kuinka monta yötä haluatte majoittua? " << endl << ": ";
     cin >> Varaukset.varauksen_kesto;
+    cout << endl;
 
     // Jos alle nolla tai yli 45 kysytaan uudelleen
     if (Varaukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
@@ -143,21 +144,23 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     
     nimenanto:
 
-    cout << "Millä nimellä varaus tallennetaan? ";
+    cout << "Millä nimellä varaus tallennetaan? " << endl << ": ";
+    cin >> Varaukset.varaajan_koko_nimi;
     getline (cin, Varaukset.varaajan_koko_nimi);
+    cout << endl; 
 
     nimisyote:
 
     cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << ". " << endl; 
-    cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl;
-    cout << endl << ":";
+    cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl << ": ";
     cin >> fvalikko;
-    
+    cout << endl;
+
     switch (fvalikko)
     {
     case '1':
 
-        cout << "Hienoa!" << endl;
+        cout << endl;
         break;
     case '2':
 
@@ -195,10 +198,10 @@ bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone){
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
 void tulostaVaraus(const HotelliVaraukset &Varaukset){
 
-    cout << "Tässä on syottämäsi varauksen tiedot" << endl << endl;
-    cout << "Varaajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
-    cout << "Varatun huoneen numero: " << Varaukset.huoneen_numero << endl;
-    cout << "Varauksen kesto: " << Varaukset.varauksen_kesto << " yötä." << endl;
+    cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot" << endl << endl;
+    cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
+    cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
+    cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä." << endl;
     // Lasketaan oiden maara * "HINTA_PER_YO"
-    cout << "Varauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa." << endl << endl;
+    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa." << endl << endl;
 }
