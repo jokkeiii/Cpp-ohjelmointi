@@ -10,6 +10,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string; 
+using std::getline;
 
 /* TODO
 
@@ -26,12 +27,13 @@ HotelliVaraukset luoVaraus(HotelliVaraukset, int);
 
 // Vakiot
 const int HUONEIDEN_LKM = 300;
-
+const int MIN_VARAUKSEN_KESTO = 0;
+const int MAX_VARAUKSEN_KESTO = 45;
 
 // Tietueet
 struct HotelliVaraukset
 {
-    string varaajan_nimi;
+    string varaajan_koko_nimi;
     int huoneen_numero, varauksen_kesto;
 };
 
@@ -77,10 +79,15 @@ int main() {
                 }
             }
             
+            // Kutsutaan funktiota taulukon "count" tietueella
+            luoVaraus(varaukset[count], varattava_huone);
+            
+            // Kutsutaan funktiota tulostamaan taulukon "count" tietueen
+            tulostaVaraus(varaukset[count]);
 
             // Laskuri taulukkoon tallentamista varten
             count++;
-
+            
             break;
         case '0':
 
@@ -101,31 +108,42 @@ int main() {
 }
 
 
-// Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevaan taulukkoon
-HotelliVaraukset luoVaraus(HotelliVaraukset &tempVaraukset, int tempcount){
+// Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "count" tietueeseen
+HotelliVaraukset luoVaraus(HotelliVaraukset &tempVaraukset, int tempvarattava_huone){
     
-    int varattava_huone;
+    // Asetetaan syotetty huone tietueeseen
+    tempVaraukset.huoneen_numero = tempvarattava_huone;
 
     // Tulostetaan kyseinen huone taulukosta ja kysytaan majoituksen kesto
-    cout << "Hienoa! Huone " << varatut_huoneet[count] << " on varattu teille. " << endl;
+    cout << "Hienoa! Huone " << tempVaraukset.huoneen_numero << " on varattu teille. " << endl;
     cout << endl;
-    cout << "Kuinka monta yötä haluatte majoittua? ";
-    cin >> varauksen_kesto;
 
+    ajanvaraus:
 
-    // Syotteentarkastus, jos alle nolla tai yli 45 kysytaan uudelleen
-    cout << "Varaamme huoneita vähintään yhdeksi yöksi. " << endl << endl;
     cout << "Kuinka monta yötä haluatte majoittua? ";
-    cin >> varauksen_kesto;
+    cin >> tempVaraukset.varauksen_kesto;
 
-    cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
-    cout << "Kuinka monta yötä haluatte majoittua? ";
-    cin >> varauksen_kesto;
+    // Jos alle nolla tai yli 45 kysytaan uudelleen
+    if (tempVaraukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
+    {
+        cout << "Varaamme huoneita vähintään yhdeksi yöksi. " << endl << endl;
+        goto ajanvaraus;
+
+    } else if (tempVaraukset.varauksen_kesto > MAX_VARAUKSEN_KESTO)
+    {
+        cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
+        goto ajanvaraus;
+
+    }
     
+    nimenanto:
 
-    // Lasketaan majoituksen hinta ja tulostetaan se
-    cout << endl;
-    cout << "Tämä selvä!" << endl << "Majoituksen hinnaksi tulee: " << varauksen_kesto * 100 << " euroa." << endl << endl;
+    cout << "Millä nimellä varaus tallennetaan? ";
+    getline (cin, tempVaraukset.varaajan_koko_nimi);
+
+    cout << "Kiitoksia! Annoitte nimen: " << tempVaraukset.varaajan_koko_nimi << ". " << endl; 
+    cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl;
+    cout << endl << ":";
 
     return tempVaraukset;
 }
