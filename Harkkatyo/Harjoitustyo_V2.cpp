@@ -30,8 +30,8 @@ const int HINTA_PER_YO = 100;
 // Tietueet
 struct HotelliVaraukset
 {
-    string varaajan_koko_nimi;
-    int huoneen_numero, varauksen_kesto;
+    string varaajan_koko_nimi = "Matti Malli";
+    int huoneen_numero = 0, varauksen_kesto = 0;
 };
 
 // Funktioiden prototyypit
@@ -42,7 +42,7 @@ void tulostaVaraus(const HotelliVaraukset &Varaukset);
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
-    HotelliVaraukset varaukset[HUONEIDEN_LKM] = {0};
+    HotelliVaraukset varaukset[HUONEIDEN_LKM];
 
     // varattava_huone syotetta varten
     int varattava_huone, count = 0; 
