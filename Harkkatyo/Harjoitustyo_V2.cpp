@@ -20,10 +20,6 @@ using std::getline;
     
 */
 
-// Funktioiden prototyypit
-bool onkoHuoneVarattu(const HotelliVaraukset, int);
-HotelliVaraukset luoVaraus(HotelliVaraukset, int);
-void tulostaVaraus(const HotelliVaraukset);
 
 // Vakiot
 const int HUONEIDEN_LKM = 300;
@@ -38,6 +34,10 @@ struct HotelliVaraukset
     int huoneen_numero, varauksen_kesto;
 };
 
+// Funktioiden prototyypit
+bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone);
+HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone);
+void tulostaVaraus(const HotelliVaraukset &Varaukset);
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
@@ -67,6 +67,7 @@ int main() {
             cout << "Minkä huoneen haluatte varata? (1-300) : ";
             cin >> varattava_huone;
 
+            // Silmukalla testataan jokaisen taulukon paikan tietue
             for (int i = 0; i < HUONEIDEN_LKM; i++)
             {   
                 // Jos funktio palauttaa true, eli huone on varattu
@@ -96,6 +97,7 @@ int main() {
             break;
         default:
 
+            // Jos syote ei ole 1 tai 0
             cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
             cout << endl;
             break;
@@ -111,6 +113,7 @@ int main() {
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "count" tietueeseen
 HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
+    
     char fvalikko;
 
     // Asetetaan syotetty huone tietueeseen
@@ -153,17 +156,22 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     switch (fvalikko)
     {
     case '1':
+
         cout << "Hienoa!" << endl;
         break;
     case '2':
+
         goto nimenanto;
         break;
     default:
+
         cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
         cout << endl;
         goto nimisyote;
         break;
     }
+
+
     return Varaukset;
 }
 
