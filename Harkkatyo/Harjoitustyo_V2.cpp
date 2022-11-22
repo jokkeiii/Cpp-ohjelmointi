@@ -13,23 +13,33 @@ using std::string;
 /* TODO
 
     Huonevaraus omaksi funktioksi
-
-    Varauksen tallennus structina
     
 */
 
 // Funktioiden prototyypit
+bool onkoHuoneVarattu(const HotelliVaraukset);
+HotelliVaraukset luoVaraus(HotelliVaraukset, int);
+
 
 // Vakiot
 const int HUONEIDEN_LKM = 300;
 
 
+// Tietueet
+struct HotelliVaraukset
+{
+    string varaajan_nimi;
+    int huoneen_numero, varauksen_kesto;
+};
+
+
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
+    HotelliVaraukset varaukset[HUONEIDEN_LKM] = {0};
+
     // varattava_huone ja varauksen kesto: syotetta varten
-    int varattava_huone, varauksen_kesto, count = 0; 
-    int varatut_huoneet[HUONEIDEN_LKM] = { 0 };
+    int count = 0; 
     char valikko;
 
     cout << "Tervetuloa!!" << endl;
@@ -37,90 +47,61 @@ int main() {
 
     // Valikko
     do{
-        
-        // Tarkistetaan onko kaikki 300 huonetta varattu 
-        if (count < 299)
+
+        cout << R"(#1 Varata uuden huoneen \n#0 Poistua ohjelmasta \n: )";
+        cin >> valikko;
+
+        switch (valikko)
         {
+        case '1':
             
-            cout << R"(Jos haluatte varata uuden huoneen valitkaa " V " , jos haluatte poistua valitkaa " X " : )" << endl;
-            cin >> valikko; 
+            // Kutsutaan funktiota, jolla luodaan varaus
+            luoVaraus(varaukset[count], count);
 
-            // Tarkistetaan syote, jos V, suoritetaan varaus
-            if (valikko == 'V' || valikko == 'v')
-            {   
-                cout << "Minkä huoneen haluatte varata? (1-300) : ";
-                cin >> varattava_huone;
 
-                // TODO 
-                // Tee tasta funktio
-                
-                // Syotteen tarkistus valilla 1-300
-                if (varattava_huone >= 1 && varattava_huone <= 300)
-                {
-                    
-                    // Silmukka jolla tarkastetaan onko annettu huone jo varattu
-                    for (int i = 0; i < 300; i++)
-                    {
-                        // Jos huone on jo varattu kysytaan uusi huone
-                        if (varattava_huone == varatut_huoneet[i])
-                        {
-                            cout << "Huone " << varattava_huone << " on valitettavasti jo varattu." << endl; 
+            // Laskuri taulukkoon tallentamista varten
+            count++;
 
-                            cout << endl;
+            break;
+        case '0':
 
-                            cout << "Minkä huoneen haluatte varata? (1-300) : ";
-                            cin >> varattava_huone;
-                        }
-                        
-                    }
-                }
+            cout << "Kiitoksia käynnistä ja tervetuloa uudelleen!" << endl;
+            break;
+        default:
 
-                // Asetetaan varattu huone taulukkoon
-                varatut_huoneet[count] += varattava_huone;
-
-                // Tulostetaan kyseinen huone taulukosta ja kysytaan majoituksen kesto
-                cout << "Hienoa! Huone " << varatut_huoneet[count] << " on varattu teille. " << endl;
-                cout << endl;
-                cout << "Kuinka monta yötä haluatte majoittua? ";
-                cin >> varauksen_kesto;
-
-                // Syotteentarkastus, jos alle nolla tai yli 45 kysytaan uudelleen
-                if (varauksen_kesto <= 0)
-                {
-                    cout << "Varaamme huoneita vähintään yhdeksi yöksi. " << endl << endl;
-                    cout << "Kuinka monta yötä haluatte majoittua? ";
-                    cin >> varauksen_kesto;
-
-                }else if (varauksen_kesto >= 45)
-                {
-                    cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
-                    cout << "Kuinka monta yötä haluatte majoittua? ";
-                    cin >> varauksen_kesto;
-                }
-                
-                
-                // Lasketaan majoituksen hinta ja tulostetaan se
-                cout << endl;
-                cout << "Tämä selvä!" << endl << "Majoituksen hinnaksi tulee: " << varauksen_kesto * 100 << " euroa." << endl << endl;
-
-                // Laskuri taulukkoon tallentamista varten
-                count++;
-            }
-            
-        }
-        else
-        {
-            cout << "Valitettavasti kaikki huoneemme on tällä hetkellä varattuina. " << endl << "Kiitos ja näkemiin! ";
-
-            valikko = 'x';
+            cout << "Valitettavasti valitsemanne merkki ei ole käytössä." << endl;
+            cout << endl;
+            break;
         }
 
     // Tarkistetaan syote, jos p, poistutaan muuten jatketaan
     }
-    while (!(valikko == 'x' || valikko == 'X')); 
+    while (valikko != '0'); 
 
     
     
     
     return 0;
+}
+
+// Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevaan taulukkoon
+HotelliVaraukset luoVaraus(HotelliVaraukset &tempVaraukset, int count){
+
+
+
+    return tempVaraukset;
+}
+
+
+bool onkoHuoneVapaa(const HotelliVaraukset &tempVaraukset){
+
+    if (/* condition */)
+    {
+        return false;
+    } 
+    else
+    {
+        return true;
+    }
+    
 }
