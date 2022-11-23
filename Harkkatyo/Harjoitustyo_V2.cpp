@@ -14,7 +14,7 @@ using std::getline;
 
 /* TODO
 
-    Nada
+    int input validation
     
 */
 
