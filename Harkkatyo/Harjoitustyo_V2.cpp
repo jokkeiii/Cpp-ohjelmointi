@@ -145,7 +145,6 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     nimenanto:
 
     cout << "Millä nimellä varaus tallennetaan? " << endl << ": ";
-    cin >> Varaukset.varaajan_koko_nimi;
     getline (cin, Varaukset.varaajan_koko_nimi);
     cout << endl; 
 
