@@ -6,3 +6,4 @@ start.bat
 *.exe
 *.pdb
 *.ilk
+*.bat
