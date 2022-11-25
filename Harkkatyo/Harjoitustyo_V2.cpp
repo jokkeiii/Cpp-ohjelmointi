@@ -5,12 +5,14 @@
 #include<iomanip>
 #include<string>
 #include<stdio.h>
+#include<limits> 
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string; 
 using std::getline;
+
 
 /* TODO
 
@@ -67,6 +69,26 @@ int main() {
             cin >> varattava_huone;
             cout << endl; 
 
+            // Syotteentarkastus. Jos annettu syote ei ole numero, se on 0
+            // tai yli 300, kysytaan kayttajalta syote uudelleen
+            if (cin.fail())
+            {
+                cout << "Antamanne syöte ei ole hyväksytty numero välilä 1-300." << endl;
+                cout << endl;
+
+                cin.clear();
+                cin.ignore();
+
+                goto varaus;
+
+            }else if (varattava_huone <= 0 || varattava_huone > 300)
+            {
+                cout << "Valitettavasti meillä ei ole syöttämäänne huonetta tällä hetkellä käytössä." << endl;
+                cout << endl;
+
+                goto varaus;
+            }
+            
             // Silmukalla testataan jokaisen taulukon paikan tietue
             for (int i = 0; i < HUONEIDEN_LKM; i++)
             {   
