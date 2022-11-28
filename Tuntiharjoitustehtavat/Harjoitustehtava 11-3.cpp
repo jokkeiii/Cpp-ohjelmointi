@@ -9,35 +9,76 @@ using namespace std;
 // Vakio lottonumeroiden maaraan
 const int NUMEROIDEN_MAARA = 10;
 
-void lottoKone(int &lottorivi[NUMEROIDEN_MAARA]){
+void numeroidenArvonta(int &lottorivi[NUMEROIDEN_MAARA]){
     
+    srand(time(0));
+
+    for (int i = 0; i < NUMEROIDEN_MAARA; i++)
+    {
+        lottorivi[i] = rand() % 40 + 1;
+    }
     
 }
 
 void lottorivinTarkastus(int lottorivi[NUMEROIDEN_MAARA]){
+    
+    int voitto_lotto_numerot, voitto_bonus_numerot;
 
+    // Kayttajan numerot
     cout << "Lottorivisi on: ";
+    
+    for (int i = 0; i < NUMEROIDEN_MAARA - 3; i++)
+    {
+        cout << lottorivi[i] << ", ";
         
-        for (int i = 0; i < 7; i++)
+    }
+    cout << "ja bonusnumerot ";
+    for (int i = NUMEROIDEN_MAARA - 3; i < NUMEROIDEN_MAARA; i++)
+    {
+        if (i == 9)
         {
             cout << lottorivi[i] << ", ";
-            
-        }
-        cout << "ja bonusnumerot ";
-        for (int i = 7; i < NUMEROIDEN_MAARA; i++)
+        }else
         {
-            if (i == 9)
-            {
-                cout << lottorivi[i] << ", ";
-            }else
-            {
-                cout << lottorivi[i] << " ";
-            }
-            
+            cout << lottorivi[i] << ".";
         }
+        
+    }
 
+    cout << endl << endl;
+
+    // Voittonumerot
+    cout << "Ja voittonumerot ovat... ";
+    
+    for (int i = 0; i < NUMEROIDEN_MAARA - 3; i++)
+    {
+        cout << lottorivi[i] << ", ";
+        
+    }
+
+    cout << "ja bonusnumerot ";
+    
+    for (int i = NUMEROIDEN_MAARA - 3; i < NUMEROIDEN_MAARA; i++)
+    {
+        if (i == 9)
+        {
+            cout << lottorivi[i] << ", ";
+        }else
+        {
+            cout << lottorivi[i] << ".";
+        }
+        
+    }
+
+    cout << endl << endl;
+
+    cout << "Sait " << voitto_lotto_numerot << "+" << voitto_bonus_numerot << " oikein! " << endl << "Olet voittanut 10000000 euroa! "
 }
 
+// Testataan onko numero
+bool onkoNumeroVarattu(int lottorivi[NUMEROIDEN_MAARA], int uusi_numero){
+
+}
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
@@ -78,10 +119,11 @@ int main() {
             break;
         case '2':
 
-            // Kutsutaan funktiota taulukoilla(ovat viela tyhjat)
-            lottoKone(lottorivi[NUMEROIDEN_MAARA]);
+            // Funktiossa asetetaan taulukkoon numerot
+            numeroidenArvonta(lottorivi);
             
-            lottorivinTarkastus(lottorivi[NUMEROIDEN_MAARA]);
+            // Tarkastetaan ja tulostetaan lottorivi taulukon numerot
+            lottorivinTarkastus(lottorivi);
             
             break;
         case '3':
