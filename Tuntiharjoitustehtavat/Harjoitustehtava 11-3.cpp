@@ -7,9 +7,13 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using std::random_device;
+using std::uniform_int_distribution;
 
 void lottoKone(int &lottorivi[7], int &bonus[3]){
-
+    random_device rand;
+    uniform_int_distribution<int> dist(1,9);
+    cout << dist(rand) << " ";
 }
 
 int main() {
