@@ -2,12 +2,9 @@
 
 #include<iostream>
 #include<random>
+#include<cstdlib>
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::random_device;
-using std::uniform_int_distribution;
+using namespace std;
 
 void firstRandom(){
     random_device rand;
@@ -21,6 +18,11 @@ void firstRandom(){
 }
 
 void secondRandom(){
+
+    for (int i = 1; i < 15; i++)
+    {
+        cout << rand() % 40 + 1 << endl;
+    }
     
 }
 
