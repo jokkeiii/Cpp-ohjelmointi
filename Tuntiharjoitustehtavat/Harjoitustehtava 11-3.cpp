@@ -2,13 +2,15 @@
 // Lotto-ohjelma
 
 #include<iostream>
-#include<string>
+#include<random>
 
 using std::cout;
 using std::cin;
 using std::endl;
-using std::string;
-using std::getline;
+
+void lottoKone(int &lottorivi[7], int &bonus[3]){
+
+}
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
@@ -49,8 +51,9 @@ int main() {
 
         break;
     case '2':
-    
-        cout << "Lottorivi" << endl;
+
+        // Kutsutaan funktiota taulukoilla(ovat viela tyhjat)
+        lottoKone(lottorivi[7], bonus[3]);
 
         break;
     case '3':
