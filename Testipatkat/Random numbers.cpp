@@ -9,16 +9,27 @@ using std::endl;
 using std::random_device;
 using std::uniform_int_distribution;
 
+void firstRandom(){
+    random_device rand;
+    uniform_int_distribution<int> dist(1,40);
+    
+    for (auto i = 0; i < 7; i++)
+    {
+        cout << dist(rand) << "   "; 
+    }
+
+}
+
+void secondRandom(){
+    
+}
+
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
-    random_device rand;
-    uniform_int_distribution<int> dist(1,9);
-    
-    for (auto i = 0; i < 10; i++)
-    {
-        cout << dist(rand) << " ";
-    }
+    // firstRandom();
+
+    secondRandom();
 
     return 0;
 }
