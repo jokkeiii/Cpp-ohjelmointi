@@ -18,6 +18,10 @@ using std::getline;
 
     int input validation
     
+    roomnumbers random between 30-70
+
+    price random between 80-100
+
 */
 
 
