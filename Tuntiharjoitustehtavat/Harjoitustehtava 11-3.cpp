@@ -9,45 +9,48 @@ using namespace std;
 // Vakio lottonumeroiden maaraan
 const int NUMEROIDEN_MAARA = 10;
 
-void numeroidenArvonta(int &lottorivi[NUMEROIDEN_MAARA]){
+// Funktio arpoo numeron
+int numeroidenArvonta(){
     
+    int uusi_numero;
+
     srand(time(0));
 
-    for (int i = 0; i < NUMEROIDEN_MAARA; i++)
-    {
-        lottorivi[i] = rand() % 40 + 1;
-    }
-    
+    uusi_numero = rand() % 40 + 1;
+
+    return uusi_numero;
 }
 
+// Funktio tarkastaa lottonumerot ja tulostaa kayttajan- seka voittonumerot
 void lottorivinTarkastus(int lottorivi[NUMEROIDEN_MAARA]){
-    
-    int voitto_lotto_numerot, voitto_bonus_numerot;
 
-    // Kayttajan numerot
-    cout << "Lottorivisi on: ";
+    // Tulostetaan kayttajan numerot
+    cout << endl << "Lottorivisi on: ";
     
     for (int i = 0; i < NUMEROIDEN_MAARA - 3; i++)
     {
         cout << lottorivi[i] << ", ";
         
     }
+
     cout << "ja bonusnumerot ";
+    
+    // ja kayttajan bonusnumerot
     for (int i = NUMEROIDEN_MAARA - 3; i < NUMEROIDEN_MAARA; i++)
     {
         if (i == 9)
         {
-            cout << lottorivi[i] << ", ";
+            cout << lottorivi[i] << ".";
         }else
         {
-            cout << lottorivi[i] << ".";
+            cout << lottorivi[i] << ", ";
         }
         
     }
 
     cout << endl << endl;
 
-    // Voittonumerot
+    // Tulostetaan voittonumerot
     cout << "Ja voittonumerot ovat... ";
     
     for (int i = 0; i < NUMEROIDEN_MAARA - 3; i++)
@@ -57,54 +60,70 @@ void lottorivinTarkastus(int lottorivi[NUMEROIDEN_MAARA]){
     }
 
     cout << "ja bonusnumerot ";
-    
+
+    // ja voittonumeroiden bonusnumerot
     for (int i = NUMEROIDEN_MAARA - 3; i < NUMEROIDEN_MAARA; i++)
     {
         if (i == 9)
         {
-            cout << lottorivi[i] << ", ";
+            cout << lottorivi[i] << ".";
         }else
         {
-            cout << lottorivi[i] << ".";
+            cout << lottorivi[i] << ", ";
         }
         
     }
 
     cout << endl << endl;
 
-    cout << "Sait " << voitto_lotto_numerot << "+" << voitto_bonus_numerot << " oikein! " << endl << "Olet voittanut 10000000 euroa! "
+    for (int i = 0; i < NUMEROIDEN_MAARA; i++)
+    {
+        
+    }
+    
+    cout << "Sait 7+3 oikein! " << endl << "Olet voittanut 10000000 euroa! ";
+
+    cout << endl << endl << "--------------------------------------------------------------------------------" << endl;
+
 }
 
 // Testataan onko numero
-bool onkoNumeroVarattu(int lottorivi[NUMEROIDEN_MAARA], int uusi_numero){
+bool onkoNumeroVarattu(int lottorivi_numero, int f_uusi_numero){
 
+    if (lottorivi_numero == f_uusi_numero)
+    {
+        return true;
+    }else
+    {
+        return false;
+    }
+    
 }
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
-    int lottorivi[NUMEROIDEN_MAARA] = {0};
-    char valikko = '';
+    int temp_numero = 0, lottorivi[NUMEROIDEN_MAARA] = {0};
+    char valikko;
 
     cout << "Tervetuloa helppoon lottoon, voiton saaminen on helppoa!" << endl << endl;
 
-    while (true)
+    do
     {
-        cout << "Mitä haluaisit tehdä? (Syötä numero 1-4)" << endl;
-        cout << "1: Katso palkintosummat " << endl;
+        cout << "Mitä haluaisit tehdä? (Syöta numero 1-4)" << endl;
+        cout << "1: Katso palkintosummat" << endl;
         cout << "2: Pelaa koneen arpomalla rivillä" << endl;
         cout << "3: Pelaa omilla numeroilla" << endl;
         cout << "4: Lopeta pelaaminen" << endl;
 
         cin >> valikko;
 
-        cout << endl;
-
         // Valikon vaihtoehdot
         switch (valikko)
         {
         case '1':
 
+            cout << endl;
             cout << "Numeroita + lisänumeroita oikein\tVoittosumma" << endl;
             cout << "7\t\t\t\t\t10 000 000 e" << endl;
             cout << "6+1\t\t\t\t\t1 000 000 e" << endl;
@@ -119,22 +138,44 @@ int main() {
             break;
         case '2':
 
-            // Funktiossa asetetaan taulukkoon numerot
-            numeroidenArvonta(lottorivi);
+            // Silmukan lopussa asetetaan arvottu ja testattu numero taulukkoon paikalle i
+            for (int i = 0; i < NUMEROIDEN_MAARA; i++)
+            {
+                arvonta:
+
+                // Funktiossa arvotaan numero ja paluu asetetaan muuttujaan
+                temp_numero = numeroidenArvonta();
+                
+                // Kutsutaan funktiota taulukon jokaisella paikalla joka testaa
+                // onko numero jo kaytossa
+                for (int i = 0; i < NUMEROIDEN_MAARA; i++)
+                {
+                    // Jos funktio palauttaa true palataan takaisin kohtaan "arvonta"
+                    if (onkoNumeroVarattu(lottorivi[i], temp_numero))
+                    {
+                        goto arvonta;
+                    }
+
+                }
+
+                lottorivi[i] = temp_numero;
+            }
             
             // Tarkastetaan ja tulostetaan lottorivi taulukon numerot
             lottorivinTarkastus(lottorivi);
             
             break;
         case '3':
-        
-            cout << "Valitettavasti valitsemasi vaihtoehto ei ole vielä käytössä. " << endl;
 
+            cout << endl;
+            cout << "Valitettavasti valitsemasi vaihtoehto ei ole vielä käytössä. " << endl;
+            cout << endl;
+        
             break;
         case '4':
-        
+
             cout << "--------------------------------------------------------------------------------" << endl << endl;
-            cout << "Tervetuloa uudestaan.";
+            cout << "Tervetuloa uudestaan." << endl;
 
             break;
         default:
@@ -145,7 +186,7 @@ int main() {
 
             break;
         }
-    }
+    }while(valikko != '4');
 
     
 
