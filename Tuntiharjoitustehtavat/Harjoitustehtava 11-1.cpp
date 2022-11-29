@@ -88,7 +88,7 @@ int main() {
 
     desimaali = roomalaisDesimaaliksi(roomalainen_num);
 
-    cout << "Desimaalimuodossa roomalainen luku " << roomalainen_num << " on " << desimaali;
+    cout << "Desimaalimuodossa roomalainen luku " << roomalainen_num << " on " << desimaali << endl;
 
     return 0;
 }
