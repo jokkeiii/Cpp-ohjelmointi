@@ -18,6 +18,8 @@ using std::getline;
 
     int input validation
     
+    stay input validation, float
+
     roomnumbers random between 30-70
 
     price random between 80-100
@@ -81,7 +83,7 @@ int main() {
                 cout << endl;
 
                 cin.clear();
-                cin.ignore();
+                cin.ignore(1000,'\n');
 
                 goto varaus;
 
