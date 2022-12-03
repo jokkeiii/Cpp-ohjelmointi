@@ -22,9 +22,9 @@ using std::getline;
 
 
 // Vakiot
-const int HUONEIDEN_LKM = 300;
 const int MIN_VARAUKSEN_KESTO = 0;
 const int MAX_VARAUKSEN_KESTO = 45;
+const int HUONEIDEN_LKM = 300;
 const int HINTA_PER_YO = 100;
 
 // Tietueet
@@ -43,6 +43,7 @@ int main() {
     setlocale(LC_ALL, "fi_FI");
     
     HotelliVaraukset varaukset[HUONEIDEN_LKM];
+
 
     // varattava_huone syotetta varten
     int varattava_huone, count = 0; 
