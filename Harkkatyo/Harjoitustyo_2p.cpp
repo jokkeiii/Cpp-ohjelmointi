@@ -15,9 +15,9 @@ using std::getline;
 /* TODO
 
     roomnumbers random between 30-70
-
+        huoneidenMaara
     price random between 80-100
-
+        huoneHinta
 */
 
 
@@ -38,12 +38,18 @@ struct HotelliVaraukset
 bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone);
 HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone);
 void tulostaVaraus(const HotelliVaraukset &Varaukset);
+int randHuoneidenMaara();
+int randHuoneHinta();
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
     
-    HotelliVaraukset varaukset[HUONEIDEN_LKM];
+    // Kutsutaan funktioita, joiden paluuarvo asetetaan muuttujiin
+    // Funktiot maarittavat satunnaiset huonemaarat ja hinnan per yo
+    int huoneiden_maara = randHuoneidenMaara();
+    int hinta_per_yo = randHuoneHinta();
 
+    HotelliVaraukset varaukset[HUONEIDEN_LKM];
 
     // varattava_huone syotetta varten
     int varattava_huone, count = 0; 
@@ -59,8 +65,10 @@ int main() {
         cin >> valikko;
         cout << endl;
 
+        // Valikko testit
         switch (valikko)
         {
+        // Jos 1 varataan huone
         case '1':
             
             // Goto merkki 
@@ -115,10 +123,14 @@ int main() {
             count++;
             
             break;
+
+        // Jos 0 poistutaan ohjelmasta
         case '0':
 
             cout << "Kiitoksia käynnistä ja tervetuloa uudelleen!" << endl << endl << endl;
             break;
+
+        // Jos vaara valinta, while palauttaa takaisin alkuun
         default:
 
             // Jos syote ei ole 1 tai 0
@@ -139,7 +151,7 @@ int main() {
 }
 
 
-// Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "count" tietueeseen
+// Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
 HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     
     char fvalikko;
@@ -265,4 +277,40 @@ void tulostaVaraus(const HotelliVaraukset &Varaukset){
     cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
     // Lasketaan oiden maara * "HINTA_PER_YO"
     cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa" << endl << endl << endl;
+}
+
+// Funktio tuottaa satunnaisen huonemaaran valilla 30-70
+int randHuoneidenMaara(){
+    // Randin siemennys, randin vakio yliajetaan ajasta
+    srand(time(NULL));
+    
+    int f_huoneiden_lkm;
+
+    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
+    do
+    {
+        f_huoneiden_lkm = rand() % 70;
+    
+    } while (f_huoneiden_lkm < 30 || f_huoneiden_lkm > 70);
+
+    // Palautetaan "suodatettu" tulos
+    return f_huoneiden_lkm;
+}
+
+// Funktio tuottaa satunnaisen hinnan valilla 80-100
+int randHuoneHinta(){
+    // Randin siemennys, randin vakio yliajetaan ajasta
+    srand(time(NULL)); 
+    
+    int f_hinta_per_yo;
+    
+    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 80 ja alle 100
+    do
+    {
+        f_hinta_per_yo = rand() % 100;
+    
+    } while (f_hinta_per_yo < 80 || f_hinta_per_yo > 100);
+
+    // Palautetaan "suodatettu" tulos
+    return f_hinta_per_yo;
 }
