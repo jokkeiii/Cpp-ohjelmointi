@@ -16,10 +16,6 @@ using std::getline;
 
 /* TODO
 
-    int input validation
-    
-    stay input validation, float
-
     roomnumbers random between 30-70
 
     price random between 80-100
@@ -55,11 +51,11 @@ int main() {
     char valikko;
 
     cout << "Tervetuloa!!" << endl;
-    cout << "Mitä haluaisitte tehdä?" << endl << endl;
 
     // Valikko
     do{
-
+        // Kysytaan kayttajalta valikon valinta
+        cout << "Mitä haluaisitte tehdä?" << endl << endl;
         cout << "#1 Varata uuden huoneen " << endl << "#0 Poistua ohjelmasta " << endl << ": ";
         cin >> valikko;
         cout << endl;
@@ -81,7 +77,8 @@ int main() {
             {
                 cout << "Antamanne syöte ei ole hyväksytty numero välilä 1-300." << endl;
                 cout << endl;
-
+                
+                // Tyhjennetaan syote valimuisti
                 cin.clear();
                 cin.ignore(1000,'\n');
 
@@ -121,13 +118,18 @@ int main() {
             break;
         case '0':
 
-            cout << "Kiitoksia käynnistä ja tervetuloa uudelleen!" << endl;
+            cout << "Kiitoksia käynnistä ja tervetuloa uudelleen!" << endl << endl << endl;
             break;
         default:
 
             // Jos syote ei ole 1 tai 0
             cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
             cout << endl;
+
+            // Tyhjennetaan syote valimuisti
+            cin.clear();
+            cin.ignore(1000,'\n');
+            
             break;
         }
 
@@ -163,6 +165,7 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
         cout << "Antamanne syöte ei ole hyväksytty numero! " << endl;
         cout << endl;
 
+        // Tyhjennetaan syote valimuisti
         cin.clear();
         cin.ignore(1000,'\n');
 
@@ -181,14 +184,21 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
         cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
         goto ajanvaraus;
 
+    }else
+    {
+        cout << "Kiitoksia! Varauksenne on " << Varaukset.varauksen_kesto << " yötä." << endl << endl;
+        cin.clear();
+        cin.ignore(1000,'\n');
     }
 
+    // Kysytaan kayttajalta etu ja sukunimi
     nimenanto:
 
-    cout << "Millä nimellä varaus tallennetaan? " << endl << ": ";
+    cout << "Millä nimellä varaus tallennetaan? (Antakaa nimenne ilman ääkkösiä!)" << endl << ": ";
     getline (cin, Varaukset.varaajan_koko_nimi);
     cout << endl; 
 
+    // Tulostetaan syote ja varmistetaan kayttajalta etta nimi on oikein
     nimisyote:
 
     cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << ". " << endl; 
@@ -196,21 +206,33 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     cin >> fvalikko;
     cout << endl;
 
+    // Testataan kayttajan syote
     switch (fvalikko)
     {
     case '1':
-
+        // Jos nimi on oikein jatketaan ohjelmaa
         cout << endl;
         break;
     case '2':
+        // Tyhjennetaan syote valimuisti
+        cin.clear();
+        cin.ignore(1000,'\n');
 
         goto nimenanto;
+
         break;
     default:
-
+        // Jos syote ei ole 1 tai 2
         cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
         cout << endl;
+        
+        // Tyhjennetaan syote valimuisti
+        cin.clear();
+        cin.ignore(1000,'\n');
+        
+        // Siirrytaan takaisin kysymaan syote
         goto nimisyote;
+
         break;
     }
 
@@ -241,7 +263,7 @@ void tulostaVaraus(const HotelliVaraukset &Varaukset){
     cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot" << endl << endl;
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
     cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
-    cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä." << endl;
+    cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
     // Lasketaan oiden maara * "HINTA_PER_YO"
-    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa." << endl << endl;
+    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa" << endl << endl << endl;
 }
