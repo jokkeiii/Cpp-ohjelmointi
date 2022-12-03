@@ -132,8 +132,7 @@ int main() {
         }
 
     // Tarkistetaan syote, jos 0, poistutaan muuten jatketaan
-    }
-    while (valikko != '0'); 
+    } while (valikko != '0'); 
 
     return 0;
 }
@@ -156,20 +155,34 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     cout << "Kuinka monta yötä haluatte majoittua? " << endl << ": ";
     cin >> Varaukset.varauksen_kesto;
     cout << endl;
-
-    // Jos alle nolla tai yli 45 kysytaan uudelleen
-    if (Varaukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
+    
+    // Syotteentarkastus. Jos annettu syote ei ole numero, se on <= 0
+    // tai yli 300, kysytaan kayttajalta syote uudelleen
+    if (cin.fail())
     {
-        cout << "Varaamme huoneita vähintään yhdeksi yöksi. " << endl << endl;
+        cout << "Antamanne syöte ei ole hyväksytty numero! " << endl;
+        cout << endl;
+
+        cin.clear();
+        cin.ignore(1000,'\n');
+
         goto ajanvaraus;
 
+        // Jos alle nolla 
+    } else if (Varaukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
+    {
+        cout << "Valitettavasti meillä ei ole syöttämäänne huonetta tällä hetkellä käytössä." << endl;
+        cout << endl;
+
+        goto ajanvaraus;
+        // tai yli 45 kysytaan uudelleen
     } else if (Varaukset.varauksen_kesto > MAX_VARAUKSEN_KESTO)
     {
         cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
         goto ajanvaraus;
 
     }
-    
+
     nimenanto:
 
     cout << "Millä nimellä varaus tallennetaan? " << endl << ": ";
