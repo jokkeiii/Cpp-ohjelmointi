@@ -11,12 +11,6 @@ using std::string;
 using std::getline;
 
 
-// Vakiot
-const int MIN_VARAUKSEN_KESTO = 0;
-const int MAX_VARAUKSEN_KESTO = 45;
-const int HUONEIDEN_LKM = 300;
-const int HINTA_PER_YO = 100;
-
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
 HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
     
@@ -134,6 +128,7 @@ bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone){
     
 }
 
+
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
 void tulostaVaraus(const HotelliVaraukset &Varaukset){
 
@@ -144,6 +139,7 @@ void tulostaVaraus(const HotelliVaraukset &Varaukset){
     // Lasketaan oiden maara * "HINTA_PER_YO"
     cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa" << endl << endl << endl;
 }
+
 
 // Funktio tuottaa satunnaisen huonemaaran valilla 30-70
 int randHuoneidenMaara(){
@@ -163,6 +159,7 @@ int randHuoneidenMaara(){
     return f_huoneiden_lkm;
 }
 
+
 // Funktio tuottaa satunnaisen hinnan valilla 80-100
 int randHuoneHinta(){
     // Randin siemennys, randin vakio yliajetaan ajasta
@@ -179,4 +176,11 @@ int randHuoneHinta(){
 
     // Palautetaan "suodatettu" tulos
     return f_hinta_per_yo;
+}
+
+
+//
+int randHuoneenNumero(){
+
+    return 20;
 }
