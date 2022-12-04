@@ -20,6 +20,10 @@ using std::getline;
 
     huoneiden lkm kovakoodaukset pois
 
+    rand lkm ja hinta globaaleiksi?
+
+    
+
 */
 
 
