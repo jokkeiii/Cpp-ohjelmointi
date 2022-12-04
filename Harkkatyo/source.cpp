@@ -2,13 +2,20 @@
 #include<iomanip>
 #include<string>
 // Header tiedosto
-#include<harjoitustyo.h>
+#include "harjoitustyo.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::string; 
 using std::getline;
+
+
+// Vakiot
+const int MIN_VARAUKSEN_KESTO = 0;
+const int MAX_VARAUKSEN_KESTO = 45;
+const int HUONEIDEN_LKM = 300;
+const int HINTA_PER_YO = 100;
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
 HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){

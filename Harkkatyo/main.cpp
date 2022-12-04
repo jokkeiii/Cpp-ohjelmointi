@@ -5,7 +5,7 @@
 #include<iomanip>
 #include<string>
 // Header tiedosto
-#include<harjoitustyo.h>
+#include "harjoitustyo.h"
 
 using std::cout;
 using std::cin;
@@ -28,14 +28,6 @@ const int MIN_VARAUKSEN_KESTO = 0;
 const int MAX_VARAUKSEN_KESTO = 45;
 const int HUONEIDEN_LKM = 300;
 const int HINTA_PER_YO = 100;
-
-// Tietueet
-struct HotelliVaraukset
-{
-    string varaajan_koko_nimi = "Matti Malli";
-    int huoneen_numero = 0, varauksen_kesto = 0;
-};
-
 
 
 int main() {
