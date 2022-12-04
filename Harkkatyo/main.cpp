@@ -15,11 +15,14 @@ using std::getline;
 
 
 /* TODO
+    
+    arvo huoneen numero vapaana olevista huoneista
 
     roomnumbers random between 30-70
         huoneidenMaara
     price random between 80-100
         huoneHinta
+    
 */
 
 
@@ -38,6 +41,8 @@ int main() {
     int huoneiden_maara = randHuoneidenMaara();
     int hinta_per_yo = randHuoneHinta();
 
+    cout << "Huoneiden määrä on " << huoneiden_maara << endl << endl;
+    cout << "Hinta on " << hinta_per_yo << endl << endl;
     HotelliVaraukset varaukset[HUONEIDEN_LKM];
 
     // varattava_huone syotetta varten
