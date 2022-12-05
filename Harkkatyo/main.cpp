@@ -18,11 +18,7 @@ using std::getline;
     
     arvo huoneen numero vapaana olevista huoneista
 
-    huoneiden lkm kovakoodaukset pois
-
     rand lkm ja hinta globaaleiksi?
-
-    
 
 */
 
@@ -70,7 +66,7 @@ int main() {
 
             cout << "Haluatteko valita itse huoneen numeron vai antaa koneen päättää puolestanne? " << endl;
             cout << endl << "#1 Valitsen itse huoneen numeron " << endl;
-            cout << "#2 Annan koneen päättää huoneen numeron " << endl; 
+            cout << "#2 Annan koneen päättää huoneen numeron " << endl << ": "; 
             cin >> varaus_valinta;
 
             switch (varaus_valinta)
@@ -92,7 +88,7 @@ int main() {
                 // Kayttajan om valintainen huonenumeron varaus
                 KayttajaVaraus:
 
-                cout << "Minkä huoneen haluatte varata? (1-300)" << endl << ": ";
+                cout << "Minkä huoneen haluatte varata? (1-" << HUONEIDEN_LKM << ")" << endl << ": ";
                 cin >> varattava_huone;
                 cout << endl; 
 
@@ -100,7 +96,7 @@ int main() {
                 // tai yli huoneiden lkm, kysytaan kayttajalta syote uudelleen
                 if (cin.fail())
                 {
-                    cout << "Antamanne syöte ei ole hyväksytty numero välilä 1-300." << endl;
+                    cout << "Antamanne syöte ei ole hyväksytty numero välilä 1-" << HUONEIDEN_LKM << "." << endl;
                     cout << endl;
                     
                     // Tyhjennetaan syote valimuisti
