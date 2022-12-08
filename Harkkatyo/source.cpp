@@ -107,7 +107,6 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
         break;
     }
 
-
     return Varaukset;
 }
 
@@ -148,14 +147,15 @@ int randHuoneidenMaara(){
     
     int f_huoneiden_lkm = 0;
 
-    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
+    // Silmukkaa ajetaan kunnes rand antaa tulokseksi parillisen yli 40 ja alle 300
     do
     {   
-        // Randin antama tulos jaetaan 70, jonka jakojaannos + 1 asetetaan muuttujaan
-        // jakojaannos + 1, jotta voidaan paasta 70 eika jakojaannos jaa maksimissaan 69
-        f_huoneiden_lkm = rand() % RAND_HUONE_MAX + 1;
+        // Randin antama tulos jaetaan HUONEIDEN_MAARA_MAX, jonka jakojaannos + 1 asetetaan muuttujaan
+        // jakojaannos + 1, jotta voidaan paasta HUONEIDEN_MAARA_MAX lukuun eika jakojaannos jaa maksimissaan HUONEIDEN_MAARA_MAX - 1
+        f_huoneiden_lkm = rand() % HUONEIDEN_MAARA_MAX + 1;
     
-    } while (!(f_huoneiden_lkm >= RAND_HUONE_MIN && f_huoneiden_lkm <= RAND_HUONE_MAX));
+    // Jos tulos on pariton tai alle HUONEIDEN_MAARA_MIN tai yli HUONEIDEN_MAARA_MAX toistetaan silmukka
+    } while ((f_huoneiden_lkm % 2) != 0 || f_huoneiden_lkm < HUONEIDEN_MAARA_MIN || f_huoneiden_lkm > HUONEIDEN_MAARA_MAX);
 
     // Palautetaan "suodatettu" tulos
     return f_huoneiden_lkm;
@@ -164,24 +164,35 @@ int randHuoneidenMaara(){
 
 // Funktio tuottaa satunnaisen hinnan valilla 80-100
 
-int randHuoneHinta(){
+float randAlennuksenMaara(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL)); 
     
-    int f_hinta_per_yo = 0;
+    int temp_numero = 0;
+    float f_alennus_kerroin = 0;
     
     // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 80 ja alle 100
-    do
+    temp_numero = rand() % 3 + 1; 
+
+    // Jos 3 alennus on 20%
+    if (temp_numero == 3)
     {
-        f_hinta_per_yo = rand() % RAND_HINTA_MAX + 1; 
+        return f_alennus_kerroin = 0.8;
 
-    } while (!(f_hinta_per_yo >= RAND_HINTA_MIN && f_hinta_per_yo <= RAND_HINTA_MAX));
+    } // Jos 2 alennus on 10%
+    else if (temp_numero == 2)
+    {   
+        return f_alennus_kerroin = 0.9;
 
-    // Palautetaan "suodatettu" tulos
-    return f_hinta_per_yo;
+    } // Jos 1 ei alennusta, kerroin on 1
+    else
+    {
+        return f_alennus_kerroin = 1;
+    }
+     
 }
 
-//
+// Arvotaan huoneen numero 1 - huoneiden_maara
 int randHuoneenNumero(int huoneiden_maara){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
@@ -195,8 +206,44 @@ int randHuoneenNumero(int huoneiden_maara){
         // jakojaannos + 1, jotta voidaan paasta huoneiden_maara lukuun eika jakojaannos jaa maksimissaan -1 siita
         f_huone_numero = rand() % huoneiden_maara + 1;
     
-    } while (!(f_huone_numero >= 1 && f_huone_numero <= huoneiden_maara));
+    // Jos tulos on alle 1 tai yli huoneiden_maara toistetaan silmukka
+    } while (f_huone_numero < 1 || f_huone_numero > huoneiden_maara);
 
     // Palautetaan "suodatettu" tulos
     return f_huone_numero;
+}
+
+// Varauksien haku nimella tai varausnumerolla
+int randVarausNumero(HuoneVaraukset &Varaukset, int huoneiden_maara){
+    int f_varaus_numero;
+
+    // Randin siemennys, randin vakio yliajetaan ajasta
+    srand(time(NULL));
+
+    // Luodaan uusi ja testataan aiemmat varausnumerot
+    do
+    {   
+        // Arvotaan numero seka testataan etta numero on 10000-99999
+        do
+        {   
+            // Kerrotaan ensin kymmenella, jotta saadaan tarpeeksi suuria numeroita
+            f_varaus_numero = rand() * 10 % 99999;
+
+        // Jos tulos on alle 10000 tai yli 99999
+        } while (f_varaus_numero < 10000 || f_varaus_numero > 99999);
+
+        // Silmukalla testataan jokaisen taulukon paikan tietue
+        for (int i = 0; i < huoneiden_maara; i++)
+        {   
+            // Jos ehto on true, eli numero on jo kaytossa
+            if(Varaukset.varaus_numero == f_varaus_numero)
+            {   
+                // Asetetaan arvo nollaksi
+                f_varaus_numero = 0;
+            }
+        }
+    // Jos muuttujan arvo on nolla aloitetaan alusta
+    } while (f_varaus_numero != 0);
+    
+    return f_varaus_numero;
 }
