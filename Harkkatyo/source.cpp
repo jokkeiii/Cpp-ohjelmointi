@@ -43,14 +43,14 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
         goto ajanvaraus;
 
         // Jos alle nolla 
-    } else if (Varaukset.varauksen_kesto <= MIN_VARAUKSEN_KESTO)
+    } else if (Varaukset.varauksen_kesto <= VARAUKSEN_KESTO_MIN)
     {
         cout << "Valitettavasti meillä ei ole syöttämäänne huonetta tällä hetkellä käytössä." << endl;
         cout << endl;
 
         goto ajanvaraus;
         // tai yli 45 kysytaan uudelleen
-    } else if (Varaukset.varauksen_kesto > MAX_VARAUKSEN_KESTO)
+    } else if (Varaukset.varauksen_kesto > VARAUKSEN_KESTO_MAX)
     {
         cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
         goto ajanvaraus;
@@ -72,7 +72,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
     // Tulostetaan syote ja varmistetaan kayttajalta etta nimi on oikein
     nimisyote:
 
-    cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << ". " << endl; 
+    cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << endl; 
     cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl << ": ";
     cin >> fvalikko;
     cout << endl;
@@ -130,31 +130,32 @@ bool onkoHuoneVarattu(const HuoneVaraukset &Varaukset, int fvarattava_huone){
 
 
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
-void tulostaVaraus(const HuoneVaraukset &Varaukset){
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo){
 
-    cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot" << endl << endl;
+    cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot: " << endl << endl;
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
     cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
     cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
     // Lasketaan oiden maara * "HINTA_PER_YO"
-    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * HINTA_PER_YO << " euroa" << endl << endl << endl;
+    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * hinta_per_yo << " euroa" << endl << endl << endl;
 }
 
 
 // Funktio tuottaa satunnaisen huonemaaran valilla 30-70
-/*
 int randHuoneidenMaara(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
     
-    int f_huoneiden_lkm;
+    int f_huoneiden_lkm = 0;
 
     // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
     do
-    {
-        f_huoneiden_lkm = rand() % 70;
+    {   
+        // Randin antama tulos jaetaan 70, jonka jakojaannos + 1 asetetaan muuttujaan
+        // jakojaannos + 1, jotta voidaan paasta 70 eika jakojaannos jaa maksimissaan 69
+        f_huoneiden_lkm = rand() % RAND_HUONE_MAX + 1;
     
-    } while (f_huoneiden_lkm < 30 || f_huoneiden_lkm > 70);
+    } while (!(f_huoneiden_lkm >= RAND_HUONE_MIN && f_huoneiden_lkm <= RAND_HUONE_MAX));
 
     // Palautetaan "suodatettu" tulos
     return f_huoneiden_lkm;
@@ -167,28 +168,35 @@ int randHuoneHinta(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL)); 
     
-    int f_hinta_per_yo;
+    int f_hinta_per_yo = 0;
     
     // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 80 ja alle 100
     do
     {
-        f_hinta_per_yo = rand() % 100;
-    
-    } while (f_hinta_per_yo < 80 || f_hinta_per_yo > 100);
+        f_hinta_per_yo = rand() % RAND_HINTA_MAX + 1; 
+
+    } while (!(f_hinta_per_yo >= RAND_HINTA_MIN && f_hinta_per_yo <= RAND_HINTA_MAX));
 
     // Palautetaan "suodatettu" tulos
     return f_hinta_per_yo;
 }
-*/
 
 //
-int randHuoneenNumero(){
-    int f_huone_numero;
-
+int randHuoneenNumero(int huoneiden_maara){
+    // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
+    
+    int f_huone_numero = 0;
 
-    f_huone_numero = rand() % HUONEIDEN_LKM + 1;
+    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
+    do
+    {   
+        // Randin antama tulos jaetaan huoneiden_maara, jonka jakojaannos + 1 asetetaan muuttujaan
+        // jakojaannos + 1, jotta voidaan paasta huoneiden_maara lukuun eika jakojaannos jaa maksimissaan -1 siita
+        f_huone_numero = rand() % huoneiden_maara + 1;
+    
+    } while (!(f_huone_numero >= 1 && f_huone_numero <= huoneiden_maara));
 
-
+    // Palautetaan "suodatettu" tulos
     return f_huone_numero;
 }
