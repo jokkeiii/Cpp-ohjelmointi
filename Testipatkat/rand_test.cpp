@@ -4,34 +4,19 @@ using namespace std;
 int main(){
 
     // Randin siemennys, randin vakio yliajetaan ajasta
+    srand(time(NULL));
     
-    
-    int f_hinta_per_yo, n = 0;
-    
-    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 80 tai alle 100
-    /*
+    int f_huoneiden_lkm = 0;
+
+    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
     do
-    {
-        f_hinta_per_yo = rand() % 300;
-
-        cout << endl << f_hinta_per_yo << endl;
-
-    } while (f_hinta_per_yo < 80 || f_hinta_per_yo > 100);
-    */
-   for (int i = 0; i < 10; i++)
-   {
-        while (f_hinta_per_yo != 300)
-        {
-            srand(time(NULL));
-            
-            f_hinta_per_yo = rand() % 300 + 1;
-            n++;
-        }
+    {   
+        // Randin antama tulos jaetaan 70, jonka jakojaannos + 1 asetetaan muuttujaan
+        // jakojaannos + 1, jotta voidaan paasta 70 eika jakojaannos jaa maksimissaan 69
+        f_huoneiden_lkm = rand() % 70 + 1;
     
-        cout << f_hinta_per_yo << ", " << n << endl << endl;
-   }
-   
-    // cout << endl << "Final is " << f_hinta_per_yo << endl << endl;
-    
+    } while (!(f_huoneiden_lkm >= 30 && f_huoneiden_lkm <= 70));
+
+
     return 0;
 }

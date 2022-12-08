@@ -3,9 +3,13 @@
 #include<string>
 
 // Vakiot
-const int MIN_VARAUKSEN_KESTO = 0;
-const int MAX_VARAUKSEN_KESTO = 45;
+const int VARAUKSEN_KESTO_MIN = 0;
+const int VARAUKSEN_KESTO_MAX = 45;
 const int HUONEIDEN_MAX_LKM = 300;
+const int RAND_HUONE_MAX = 70;
+const int RAND_HUONE_MIN = 30;
+const int RAND_HINTA_MAX = 100;
+const int RAND_HINTA_MIN = 80;
 
 // Tietueet
 struct HuoneVaraukset
@@ -21,4 +25,4 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone);
 void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo);
 int randHuoneidenMaara();
 int randHuoneHinta();
-int randHuoneenNumero();
+int randHuoneenNumero(int huoneiden_maara);
