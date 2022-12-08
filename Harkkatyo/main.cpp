@@ -25,17 +25,16 @@ using std::getline;
 
 int main() {
     setlocale(LC_ALL, "fi_FI");
-    
-    // Kutsutaan funktioita, joiden paluuarvo asetetaan muuttujiin
-    // Funktiot maarittavat satunnaiset huonemaarat ja hinnan per yo
-    int huoneiden_max_maara = randHuoneidenMaara();
-    int hinta_per_yo = randHuoneHinta();
 
-    cout << "Huoneiden määrä on " << huoneiden_max_maara << endl << endl;
-    cout << "Hinta on " << hinta_per_yo << endl << endl;
+    // Luodaan objekti luokasta varausMuuttujat ja kutsutaan consturct
+    // funktiota arvoilla 0
+    varausMuuttujat varausten_muuttujat(0, 0);
+
+    cout << "Huoneiden määrä on " << varausten_muuttujat.huoneiden_lkm << endl << endl;
+    cout << "Hinta on " << varausten_muuttujat.hinta_per_yo << endl << endl;
 
     // Taulukko tietueesta
-    HotelliVaraukset varaukset[HUONEIDEN_LKM];
+    HuoneVaraukset varaukset[HUONEIDEN_LKM];
     // varattava_huone syotetta varten
     int varattava_huone, count = 0; 
     // Valikon muuttuja

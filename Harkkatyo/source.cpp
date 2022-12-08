@@ -12,7 +12,7 @@ using std::getline;
 
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
-HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
+HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
     
     char fvalikko;
 
@@ -113,7 +113,7 @@ HotelliVaraukset luoVaraus(HotelliVaraukset &Varaukset, int fvarattava_huone){
 
 
 // Funktio tarkistaa onko huone jo varattu
-bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone){
+bool onkoHuoneVarattu(const HuoneVaraukset &Varaukset, int fvarattava_huone){
 
     // Jos huone on varattu palautetaan true
     if (Varaukset.huoneen_numero == fvarattava_huone)
@@ -130,7 +130,7 @@ bool onkoHuoneVarattu(const HotelliVaraukset &Varaukset, int fvarattava_huone){
 
 
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
-void tulostaVaraus(const HotelliVaraukset &Varaukset){
+void tulostaVaraus(const HuoneVaraukset &Varaukset){
 
     cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot" << endl << endl;
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
@@ -142,6 +142,7 @@ void tulostaVaraus(const HotelliVaraukset &Varaukset){
 
 
 // Funktio tuottaa satunnaisen huonemaaran valilla 30-70
+/*
 int randHuoneidenMaara(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
@@ -161,6 +162,7 @@ int randHuoneidenMaara(){
 
 
 // Funktio tuottaa satunnaisen hinnan valilla 80-100
+
 int randHuoneHinta(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL)); 
@@ -177,10 +179,16 @@ int randHuoneHinta(){
     // Palautetaan "suodatettu" tulos
     return f_hinta_per_yo;
 }
-
+*/
 
 //
 int randHuoneenNumero(){
+    int f_huone_numero;
 
-    return 20;
+    srand(time(NULL));
+
+    f_huone_numero = rand() % HUONEIDEN_LKM + 1;
+
+
+    return f_huone_numero;
 }
