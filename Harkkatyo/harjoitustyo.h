@@ -18,7 +18,7 @@ struct HuoneVaraukset
 // Funktioiden prototyypit
 bool onkoHuoneVarattu(const HuoneVaraukset &Varaukset, int fvarattava_huone);
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone);
-void tulostaVaraus(const HuoneVaraukset &Varaukset);
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo);
 int randHuoneidenMaara();
 int randHuoneHinta();
 int randHuoneenNumero();
