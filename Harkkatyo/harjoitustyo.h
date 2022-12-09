@@ -28,9 +28,9 @@ struct HuoneVaraukset
 
 // Funktioiden prototyypit
 // Tarkistetaan onko syotetty huone jo varattu
-bool onkoHuoneVarattu(const HuoneVaraukset &Varaukset, int fvarattava_huone);
+bool onkoHuoneVarattu(HuoneVaraukset Varaukset, int f_varattava_huone, int huoneiden_maara);
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
-HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone);
+HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
 void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo);
 // Arvotaan parillinen huoneiden maara, valilta HUONE_MAARA_MAX - HUONE_MAARA_MIN
