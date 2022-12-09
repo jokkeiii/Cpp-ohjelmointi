@@ -131,14 +131,32 @@ bool onkoHuoneVarattu(HuoneVaraukset Varaukset[HUONEIDEN_MAARA_MAX], int f_varat
 
 
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
-void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo){
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, int alennus_kerroin){
+    
+    int huoneen_hinta;
+    string huone_tyyppi;
 
+    // Jos huone on 1hh kaytetaan HINTA_YKSIO
+    if (Varaukset.huoneen_numero <= (huoneiden_maara / 2))
+    {
+        huoneen_hinta = HINTA_YKSIO;
+        huone_tyyppi = "1 hengen huone";
+    // Jos huone on 2hh kaytetaan HINTA_KAKSIO
+    } else
+    {
+        huoneen_hinta = HINTA_KAKSIO;
+        huone_tyyppi = "2 hengen huone";
+    }
+    
+    // Tulostetaan tietueesta huonevarauksen tiedot
     cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot: " << endl << endl;
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
+    cout << "\tVarausnumero: " << Varaukset.varaus_numero << endl;
     cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
+    cout << "\tVaratun huoneen koko: " << huone_tyyppi;
     cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
-    // Lasketaan oiden maara * "HINTA_PER_YO"
-    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * hinta_per_yo << " euroa" << endl << endl << endl;
+    // Lasketaan loppusumma = oiden maara * huoneen_hinta * alennus_kerroin
+    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * huoneen_hinta * alennus_kerroin<< " euroa" << endl << endl << endl;
 }
 
 
