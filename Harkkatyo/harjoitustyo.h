@@ -32,7 +32,7 @@ bool onkoHuoneVarattu(HuoneVaraukset Varaukset, int f_varattava_huone, int huone
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
-void tulostaVaraus(const HuoneVaraukset &Varaukset, int hinta_per_yo);
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, int alennus_kerroin);
 // Arvotaan parillinen huoneiden maara, valilta HUONE_MAARA_MAX - HUONE_MAARA_MIN
 int randHuoneidenMaara();
 // Arvotaan alennuksen maara 0%, 10% tai 20%
@@ -41,3 +41,4 @@ float randAlennuksenMaara();
 int randHuoneenNumero(int huoneiden_maara);
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
 int randVarausNumero(HuoneVaraukset &Varaukset, int huoneiden_maara);
+// Haetaan varauksia joko nimella tai varausnumerolla
