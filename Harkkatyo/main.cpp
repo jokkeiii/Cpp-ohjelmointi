@@ -4,7 +4,7 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-// Header tiedosto
+// Header tiedosto "harjoitustyo.h"
 #include "harjoitustyo.h"
 
 using std::cout;
@@ -18,15 +18,29 @@ using std::getline;
     
     main valikko funktioksi
 
+    varausten hakeminen ja niiden tulostaminen 
+    varausnumeron tai nimen avulla
+
+    lopuksi poista debug coutit alusta
+
 */
 
 
 int main() {
+    // Otetaan ääkköset tulosteessa kayttoon
     setlocale(LC_ALL, "fi_FI");
 
+    // Luodaan muuttujiin arvot satunnaisfunktioista
+    // huoneiden_maara on parillinen luku valilta 40-300,
+    // joka maaraa kaytettavissa olevat huoneet
     int huoneiden_maara = randHuoneidenMaara();
+
+    // alennus_kerroin on varauksen loppusummaan tuleva alennus
+    // Se voi olla 1 eli ei alennusta, 0,9 eli 10% alennus
+    //  tai 0,8 eli 20% alennus
     float alennus_kerroin = randAlennuksenMaara();
 
+    // Debuggaamista varten, muista poistaa
     cout << endl << "Huoneiden määrä on " << huoneiden_maara << endl << endl;
     cout << "Alennuskerroin on " << alennus_kerroin << endl << endl;
 
@@ -34,18 +48,16 @@ int main() {
     HuoneVaraukset varaukset[HUONEIDEN_MAARA_MAX];
     // varattava_huone syotetta varten
     int varattava_huone, count = 0; 
-    // Valikon muuttuja
+    // Paavalikon muuttuja
     int valikko;
     // Huoneennumeron valikkomuuttuja
     char varaus_valinta;
 
-    cout << "Tervetuloa!!" << endl;
+    cout << "Tervetuloa Hotelli Perustolaan!!" << endl;
 
-    // Valikko
+    // Paavalikko
     do{
-        // Paavalikon merkki
-        mainvalikko:
-
+        
         // Kysytaan kayttajalta valikon valinta
         cout << "Mitä haluaisitte tehdä?" << endl << endl;
         
@@ -54,14 +66,14 @@ int main() {
         cin >> valikko;
         cout << endl;
 
-        // Numeron tarkastus syotteesta
+        // Numeron tarkastus syotteesta eli jos syote ei ole numero
         if (cin.fail())
         {
             // Jos syote ei ole numero
             cout << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
             cout << endl;
 
-            // Tyhjennetaan syote valimuisti
+            // Tyhjennetaan syote valimuisti, jotta vaara syote ei tuota silmukkaa
             cin.clear();
             cin.ignore(1000,'\n');
 
@@ -73,14 +85,14 @@ int main() {
             {
             // Jos 1 varataan huone
             case 1:
-                // Tyhjennetaan syote valimuisti
+                // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
                 cin.clear();
                 cin.ignore(1000,'\n');
                 
-                // Goto merkki jos tuleva valinta ei oikea
+                // Kyseisen valikon paluumerkki
                 HuoneenNumeroPaatos:
 
-                cout << "Haluatteko valita itse huoneen numeron vai antaa koneen päättää puolestanne? " << endl;
+                cout << "Haluatteko valita itse huoneen numeron vai antaa koneen arpoa huoneen numeronne? " << endl;
                 cout << endl << "#1 Valitsen itse huoneen numeron " << endl;
                 cout << "#2 Annan koneen päättää huoneen numeron " << endl << ": "; 
                 cin >> varaus_valinta;
@@ -218,4 +230,3 @@ int main() {
 
     return 0;
 }
-
