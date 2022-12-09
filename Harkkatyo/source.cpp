@@ -42,17 +42,17 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
 
         goto ajanvaraus;
 
-        // Jos alle nolla 
-    } else if (Varaukset.varauksen_kesto <= VARAUKSEN_KESTO_MIN)
+        // Jos alle yksi 
+    } else if (Varaukset.varauksen_kesto < VARAUKSEN_KESTO_MIN)
     {
-        cout << "Valitettavasti meillä ei ole syöttämäänne huonetta tällä hetkellä käytössä." << endl;
+        cout << "Valitettavasti emme voi varata huoneita 1 yötä vähempää." << endl;
         cout << endl;
 
         goto ajanvaraus;
         // tai yli 45 kysytaan uudelleen
     } else if (Varaukset.varauksen_kesto > VARAUKSEN_KESTO_MAX)
     {
-        cout << "Valitettavasti emme voi varata huoneita 45 päivää enempää kerralla. " << endl << endl;
+        cout << "Valitettavasti emme voi varata huoneita 45 yötä enempää kerralla. " << endl << endl;
         goto ajanvaraus;
 
     }else
