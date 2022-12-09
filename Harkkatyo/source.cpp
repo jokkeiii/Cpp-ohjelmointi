@@ -12,12 +12,12 @@ using std::getline;
 
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
-HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
+HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
     
-    char fvalikko;
+    char f_valikko;
 
     // Asetetaan syotetty huone tietueeseen
-    Varaukset.huoneen_numero = fvarattava_huone;
+    Varaukset.huoneen_numero = f_varattava_huone;
 
     // Tulostetaan kyseinen huone taulukosta ja kysytaan majoituksen kesto
     cout << "Hienoa! Huone " << Varaukset.huoneen_numero << " on varattu teille. " << endl;
@@ -74,11 +74,11 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
 
     cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << endl; 
     cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl << ": ";
-    cin >> fvalikko;
+    cin >> f_valikko;
     cout << endl;
 
     // Testataan kayttajan syote
-    switch (fvalikko)
+    switch (f_valikko)
     {
     case '1':
         // Jos nimi on oikein jatketaan ohjelmaa
@@ -112,19 +112,21 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int fvarattava_huone){
 
 
 // Funktio tarkistaa onko huone jo varattu
-bool onkoHuoneVarattu(const HuoneVaraukset &Varaukset, int fvarattava_huone){
+bool onkoHuoneVarattu(HuoneVaraukset Varaukset[HUONEIDEN_MAARA_MAX], int f_varattava_huone, int huoneiden_maara){
+    
+    // Silmukalla testataan jokaisen taulukon paikan tietue
+    for (int i = 0; i < huoneiden_maara; i++)
+    {  
+        // Jos huone on varattu palautetaan true
+        if (Varaukset[i].huoneen_numero == f_varattava_huone)
+        {
+            return true;
+        }
+    }
 
-    // Jos huone on varattu palautetaan true
-    if (Varaukset.huoneen_numero == fvarattava_huone)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-    
-    
+    // Jos taulukosta ei loydy samaa huonetta varattuna
+    // palautetaan false
+    return false;
 }
 
 
