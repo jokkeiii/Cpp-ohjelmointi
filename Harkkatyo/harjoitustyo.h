@@ -14,7 +14,7 @@ const int HUONEIDEN_MAARA_MIN = 40;
 // Yhden hengen huoneen hinta per yo
 const int HINTA_YKSIO = 100;
 // Kahden hengen huoneen hinta per yo
-const int HINTA_KAKSIO = 80;
+const int HINTA_KAKSIO = 150;
 
 // Tietueet
 // Huonevarauksien tietue
@@ -28,11 +28,11 @@ struct HuoneVaraukset
 
 // Funktioiden prototyypit
 // Tarkistetaan onko syotetty huone jo varattu
-bool onkoHuoneVarattu(HuoneVaraukset Varaukset, int f_varattava_huone, int huoneiden_maara);
+bool onkoHuoneVarattu(HuoneVaraukset [], int f_varattava_huone, int huoneiden_maara);
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
-void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, int alennus_kerroin);
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, float alennus_kerroin);
 // Arvotaan parillinen huoneiden maara, valilta HUONE_MAARA_MAX - HUONE_MAARA_MIN
 int randHuoneidenMaara();
 // Arvotaan alennuksen maara 0%, 10% tai 20%
@@ -40,5 +40,5 @@ float randAlennuksenMaara();
 // Arvotaan kayttajalle satunnainen huoneen numero saatavilla olevista huoneista
 int randHuoneenNumero(int huoneiden_maara);
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
-int randVarausNumero(HuoneVaraukset &Varaukset, int huoneiden_maara);
+int randVarausNumero(HuoneVaraukset [], int huoneiden_maara);
 // Haetaan varauksia joko nimella tai varausnumerolla
