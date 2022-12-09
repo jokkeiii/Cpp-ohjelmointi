@@ -142,7 +142,7 @@ int main() {
                     }
                     
                     // Jos funktio palauttaa true, eli huone on varattu
-                    if(onkoHuoneVarattu(varaukset[HUONEIDEN_MAARA_MAX], varattava_huone, huoneiden_maara))
+                    if(onkoHuoneVarattu(varaukset, varattava_huone, huoneiden_maara))
                     {
                         cout << "Valitettavasti huone " << varattava_huone << " on jo varattu." << endl;
                         cout << endl;
@@ -162,7 +162,7 @@ int main() {
                     varattava_huone = randHuoneenNumero(huoneiden_maara);
  
                     // Jos funktio palauttaa true, eli huone on varattu
-                    if(onkoHuoneVarattu(varaukset[HUONEIDEN_MAARA_MAX], varattava_huone, huoneiden_maara))
+                    if(onkoHuoneVarattu(varaukset, varattava_huone, huoneiden_maara))
                     {
                         // Jos huone on varattu palataan merkkiin varaus
                         goto KoneVaraus;
@@ -190,8 +190,8 @@ int main() {
                 luoVaraus(varaukset[count], varattava_huone);
                 
                 // Lopuksi luodaan satunnainen varausnumero funktiolla
-                varaukset[count].varaus_numero = randVarausNumero(varaukset[HUONEIDEN_MAARA_MAX], huoneiden_maara);
-
+                varaukset[count].varaus_numero = randVarausNumero(varaukset, huoneiden_maara);
+                
                 // Tulostetaan varauksen tiedot
                 tulostaVaraus(varaukset[count], huoneiden_maara, alennus_kerroin);
                 
