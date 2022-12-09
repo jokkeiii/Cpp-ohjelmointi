@@ -192,6 +192,9 @@ int main() {
                 // Lopuksi luodaan satunnainen varausnumero funktiolla
                 varaukset[count].varaus_numero = randVarausNumero(varaukset[HUONEIDEN_MAARA_MAX], huoneiden_maara);
 
+                // Tulostetaan varauksen tiedot
+                tulostaVaraus(varaukset[count], huoneiden_maara, alennus_kerroin);
+                
                 // Laskuri taulukkoon tallentamista varten
                 count++;
                 
