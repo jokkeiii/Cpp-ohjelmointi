@@ -11,6 +11,7 @@ using std::string;
 using std::getline;
 
 
+
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
     
@@ -112,8 +113,8 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
 
 
 // Funktio tarkistaa onko huone jo varattu
-bool onkoHuoneVarattu(HuoneVaraukset Varaukset[HUONEIDEN_MAARA_MAX], int f_varattava_huone, int huoneiden_maara){
-    
+bool onkoHuoneVarattu(HuoneVaraukset Varaukset[], int f_varattava_huone, int huoneiden_maara){
+
     // Silmukalla testataan jokaisen taulukon paikan tietue
     for (int i = 0; i < huoneiden_maara; i++)
     {  
@@ -131,7 +132,7 @@ bool onkoHuoneVarattu(HuoneVaraukset Varaukset[HUONEIDEN_MAARA_MAX], int f_varat
 
 
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
-void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, int alennus_kerroin){
+void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, float alennus_kerroin){
     
     int huoneen_hinta;
     string huone_tyyppi;
@@ -153,10 +154,10 @@ void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, int ale
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
     cout << "\tVarausnumero: " << Varaukset.varaus_numero << endl;
     cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
-    cout << "\tVaratun huoneen koko: " << huone_tyyppi;
+    cout << "\tVaratun huoneen koko: " << huone_tyyppi << endl;
     cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
     // Lasketaan loppusumma = oiden maara * huoneen_hinta * alennus_kerroin
-    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * huoneen_hinta * alennus_kerroin<< " euroa" << endl << endl << endl;
+    cout << "\tVarauksenne loppusumma: " << Varaukset.varauksen_kesto * huoneen_hinta * alennus_kerroin << " euroa" << endl << endl << endl;
 }
 
 
@@ -183,7 +184,6 @@ int randHuoneidenMaara(){
 
 
 // Funktio tuottaa satunnaisen hinnan valilla 80-100
-
 float randAlennuksenMaara(){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL)); 
@@ -234,7 +234,7 @@ int randHuoneenNumero(int huoneiden_maara){
 }
 
 // Varauksien haku nimella tai varausnumerolla
-int randVarausNumero(HuoneVaraukset &Varaukset, int huoneiden_maara){
+int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
     int f_varaus_numero;
 
     // Randin siemennys, randin vakio yliajetaan ajasta
@@ -256,14 +256,14 @@ int randVarausNumero(HuoneVaraukset &Varaukset, int huoneiden_maara){
         for (int i = 0; i < huoneiden_maara; i++)
         {   
             // Jos ehto on true, eli numero on jo kaytossa
-            if(Varaukset.varaus_numero == f_varaus_numero)
+            if(Varaukset[i].varaus_numero == f_varaus_numero)
             {   
                 // Asetetaan arvo nollaksi
                 f_varaus_numero = 0;
             }
         }
     // Jos muuttujan arvo on nolla aloitetaan alusta
-    } while (f_varaus_numero != 0);
+    } while (f_varaus_numero == 0);
     
     return f_varaus_numero;
 }
