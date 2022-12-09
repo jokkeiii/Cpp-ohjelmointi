@@ -141,18 +141,14 @@ int main() {
                         goto KayttajaVaraus;
                     }
                     
-                    // Silmukalla testataan jokaisen taulukon paikan tietue
-                    for (int i = 0; i < huoneiden_maara; i++)
-                    {   
-                        // Jos funktio palauttaa true, eli huone on varattu
-                        if(onkoHuoneVarattu(varaukset[i], varattava_huone))
-                        {
-                            cout << "Valitettavasti huone " << varattava_huone << " on jo varattu." << endl;
-                            cout << endl;
+                    // Jos funktio palauttaa true, eli huone on varattu
+                    if(onkoHuoneVarattu(varaukset[HUONEIDEN_MAARA_MAX], varattava_huone, huoneiden_maara))
+                    {
+                        cout << "Valitettavasti huone " << varattava_huone << " on jo varattu." << endl;
+                        cout << endl;
 
-                            // Palataan merkkiin varaus
-                            goto KayttajaVaraus;
-                        }
+                        // Palataan merkkiin varaus
+                        goto KayttajaVaraus;
                     }
                     
                     
@@ -164,17 +160,14 @@ int main() {
                     // Goto rand valitsee huoneen numeron
                     KoneVaraus:
                     varattava_huone = randHuoneenNumero(huoneiden_maara);
-
-                    // Silmukalla testataan jokaisen taulukon paikan tietue
-                    for (int i = 0; i < huoneiden_maara; i++)
-                    {   
-                        // Jos funktio palauttaa true, eli huone on varattu
-                        if(onkoHuoneVarattu(varaukset[i], varattava_huone))
-                        {
-                            // Jos huone on varattu palataan merkkiin varaus
-                            goto KoneVaraus;
-                        }
+ 
+                    // Jos funktio palauttaa true, eli huone on varattu
+                    if(onkoHuoneVarattu(varaukset[HUONEIDEN_MAARA_MAX], varattava_huone, huoneiden_maara))
+                    {
+                        // Jos huone on varattu palataan merkkiin varaus
+                        goto KoneVaraus;
                     }
+                    
                     cout << endl;
                     break;
 
