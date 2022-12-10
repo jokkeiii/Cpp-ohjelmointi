@@ -24,7 +24,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
     cout << "Hienoa! Huone " << Varaukset.huoneen_numero << " on varattu teille. " << endl;
     cout << endl;
 
-    ajanvaraus:
+    AjanVaraus:
 
     cout << "Kuinka monta yötä haluatte majoittua? " << endl << ": ";
     cin >> Varaukset.varauksen_kesto;
@@ -41,7 +41,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cin.clear();
         cin.ignore(1000,'\n');
 
-        goto ajanvaraus;
+        goto AjanVaraus;
 
     // Jos alle yksi 
     } else if (Varaukset.varauksen_kesto < VARAUKSEN_KESTO_MIN)
@@ -49,12 +49,12 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cout << "Valitettavasti emme voi varata huoneita 1 yötä vähempää." << endl;
         cout << endl;
 
-        goto ajanvaraus;
+        goto AjanVaraus;
     // jos yli 45 kysytaan uudelleen
     } else if (Varaukset.varauksen_kesto > VARAUKSEN_KESTO_MAX)
     {
         cout << "Valitettavasti emme voi varata huoneita 45 yötä enempää kerralla. " << endl << endl;
-        goto ajanvaraus;
+        goto AjanVaraus;
 
     }else
     {
@@ -64,14 +64,14 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
     }
 
     // Kysytaan kayttajalta etu ja sukunimi
-    nimenanto:
+    NimenAnto:
 
     cout << "Millä nimellä varaus tallennetaan? (Antakaa nimenne ilman ääkkösiä!)" << endl << ": ";
     getline (cin, Varaukset.varaajan_koko_nimi);
     cout << endl; 
 
     // Tulostetaan syote ja varmistetaan kayttajalta etta nimi on oikein
-    nimisyote:
+    NimiSyote:
 
     cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << endl; 
     cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl << ": ";
@@ -90,7 +90,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cin.clear();
         cin.ignore(1000,'\n');
 
-        goto nimenanto;
+        goto NimenAnto;
 
         break;
     default:
@@ -103,10 +103,11 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cin.ignore(1000,'\n');
         
         // Siirrytaan takaisin kysymaan syote
-        goto nimisyote;
+        goto NimiSyote;
 
         break;
     }
+    
 
     return Varaukset;
 }
