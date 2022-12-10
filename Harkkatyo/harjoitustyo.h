@@ -23,7 +23,8 @@ struct HuoneVaraukset
     // Sisaltaa nimen, huoneen numeron, varauksen keston oiden maarana
     // seka varausnumeron
     std::string varaajan_koko_nimi = "Tyhjä";
-    int huoneen_numero = 0, varauksen_kesto = 0, varaus_numero = 0;
+    int huoneen_numero = 0, varauksen_kesto = 0, 
+    varaus_numero = 0, huone_tyyppi = 0, loppu_summa = 0;
 };
 
 // Funktioiden prototyypit
@@ -32,7 +33,7 @@ bool onkoHuoneVarattu(HuoneVaraukset [], int f_varattava_huone, int huoneiden_ma
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
-void tulostaVaraus(const HuoneVaraukset &Varaukset, int huoneiden_maara, float alennus_kerroin);
+void tulostaVaraus(const HuoneVaraukset &Varaukset);
 // Arvotaan parillinen huoneiden maara, valilta HUONE_MAARA_MAX - HUONE_MAARA_MIN
 int randHuoneidenMaara();
 // Arvotaan alennuksen maara 0%, 10% tai 20%
@@ -41,4 +42,5 @@ float randAlennuksenMaara();
 int randHuoneenNumero(int huoneiden_maara);
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
 int randVarausNumero(HuoneVaraukset [], int huoneiden_maara);
-// Haetaan varauksia joko nimella tai varausnumerolla
+// Haetaan varauksia varausnumerolla
+void varausHaku(HuoneVaraukset [], int huoneiden_maara);
