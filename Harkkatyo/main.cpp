@@ -50,6 +50,8 @@ int main() {
     int varattava_huone, count = 0; 
     // Paavalikon muuttuja
     int valikko;
+    // Huonetyypin valinta
+    int huone_tyyppi_valinta;
     // Huoneennumeron valikkomuuttuja
     char varaus_valinta;
 
@@ -86,10 +88,35 @@ int main() {
             {
             // Jos 1 varataan huone
             case 1:
-                // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
+                
+                // Tyhjennetaan syote valimuisti, jotta edellinen syote ei vuoda seuraavaan syotteeseen
                 cin.clear();
                 cin.ignore(1000,'\n');
                 
+                // Kysytaan kayttajalta huonetyyppi 1 vai 2 hengen huone
+                do
+                {
+
+                    cout << "Haluatteko varata \n\n#1 yhden hengen vai \n#2 kahden hengen huoneen? " << endl;
+                    cout << ": ";
+                    cin >> huone_tyyppi_valinta;
+
+                    // Tarkastetaan, etta syote on numero
+                    if (cin.fail() || (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2))
+                    {
+                        // Jos syote ei ole numero
+                        cout << endl << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
+                        cout << endl;
+
+                    }
+
+                    // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
+                    cin.clear();
+                    cin.ignore(1000, '\n');
+
+                    // Jos huone_tyyppi_valinta ei ole 1 tai 2 
+                } while (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2);
+                    
                 // Kyseisen valikon paluumerkki
                 HuoneenNumeroPaatos:
 
@@ -152,8 +179,9 @@ int main() {
                 // Kayttaja antaa koneen valita huoneensa numeron
                 case '2':
                     
-                    // Goto rand valitsee huoneen numeron
+                    // Goto arpafunktio valitsee huoneen numeron
                     KoneVaraus:
+
                     varattava_huone = randHuoneenNumero(huoneiden_maara);
  
                     // Jos funktio palauttaa true, eli huone on varattu
