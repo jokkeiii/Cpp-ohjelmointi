@@ -62,6 +62,7 @@ int main() {
         cout << "Mitä haluaisitte tehdä?" << endl << endl;
         
         cout << "#1 Varata uuden huoneen " << endl;
+        cout << "#2 Hakea varauksia varausnumerolla " << endl;
         cout << "#0 Poistua ohjelmasta " << endl << ": ";
         cin >> valikko;
         cout << endl;
@@ -107,13 +108,7 @@ int main() {
                     cin.clear();
                     cin.ignore(1000,'\n');
 
-                    /* TODO
-
-                        tee tasta funktio
-                    
-                    */
-
-                    // Kayttajan om valintainen huonenumeron varaus
+                    // Kayttajan omavalintainen huonenumeron varaus
                     KayttajaVaraus:
 
                     cout << endl << "Minkä huoneen haluatte varata? (1-" << huoneiden_maara << ")" << endl << ": ";
@@ -193,13 +188,26 @@ int main() {
                 varaukset[count].varaus_numero = randVarausNumero(varaukset, huoneiden_maara);
                 
                 // Tulostetaan varauksen tiedot
-                tulostaVaraus(varaukset[count], huoneiden_maara, alennus_kerroin);
+                tulostaVaraus(varaukset[count]);
                 
                 // Laskuri taulukkoon tallentamista varten
                 count++;
                 
                 break;
-
+            // Jos 2 
+            case 2:
+                
+                // Tarkastetaan onko yhtakaan varausta viela tehty,
+                // jos count = 0 ei varauksia ole tehty
+                if (count == 0)
+                {
+                    cout << "Yhtäkään varausta ei ole vielä tehty! " << endl;
+                } else
+                {
+                    /* code */
+                }
+                
+                
             // Jos 0 poistutaan ohjelmasta
             case 0:
 
