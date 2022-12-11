@@ -13,7 +13,7 @@ using std::getline;
 
 
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
-HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
+HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int huoneiden_maara, float alennus_kerroin){
     
     char f_valikko;
 
@@ -24,6 +24,19 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
     cout << "Hienoa! Huone " << Varaukset.huoneen_numero << " on varattu teille. " << endl;
     cout << endl;
 
+    // Tallennetaan huoneen tyyppi tietueeseen
+    // Jos huoneen numero on alle huoneiden_maara / 2, se on yhden hengen huone
+    if (Varaukset.huoneen_numero  <= (huoneiden_maara / 2))
+    {
+        Varaukset.huone_tyyppi = 1;
+
+    // Jos huoneen numero on yli huoneiden_maara / 2, se on kahden hengen huone
+    }else
+    {
+        Varaukset.huone_tyyppi = 2;
+    }
+    
+    // Varauksen kesto
     AjanVaraus:
 
     cout << "Kuinka monta yötä haluatte majoittua? " << endl << ": ";
@@ -40,7 +53,8 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         // Tyhjennetaan syote valimuisti
         cin.clear();
         cin.ignore(1000,'\n');
-
+        
+        // Palataan kysymaan syote uudelleen
         goto AjanVaraus;
 
     // Jos alle yksi 
@@ -49,11 +63,15 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cout << "Valitettavasti emme voi varata huoneita 1 yötä vähempää." << endl;
         cout << endl;
 
+        // Palataan kysymaan syote uudelleen
         goto AjanVaraus;
+
     // jos yli 45 kysytaan uudelleen
     } else if (Varaukset.varauksen_kesto > VARAUKSEN_KESTO_MAX)
     {
         cout << "Valitettavasti emme voi varata huoneita 45 yötä enempää kerralla. " << endl << endl;
+        
+        // Palataan kysymaan syote uudelleen
         goto AjanVaraus;
 
     }else
@@ -90,6 +108,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         cin.clear();
         cin.ignore(1000,'\n');
 
+        // Palataan kysymaan syote uudelleen
         goto NimenAnto;
 
         break;
@@ -108,7 +127,21 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone){
         break;
     }
     
+    // Lasketaan varauksen summa
+    // Jos yhden hengen huone
+    if (Varaukset.huone_tyyppi == 1)
+    {
+        // Loppusumma = varauksen kesto oina * yhden hengen huoneen hinta * mahdollinen alennus 
+        Varaukset.loppu_summa = Varaukset.varauksen_kesto * HINTA_YKSIO * alennus_kerroin;
 
+    // Jos kahden hengen huone
+    }else
+    {
+        // Loppusumma = varauksen kesto oina * yhden hengen huoneen hinta * mahdollinen alennus 
+        Varaukset.loppu_summa = Varaukset.varauksen_kesto * HINTA_KAKSIO * alennus_kerroin;
+    }
+    
+    // Palautetaan tietueeseen tallennetut tiedot mainin taulukkoon
     return Varaukset;
 }
 
@@ -126,23 +159,29 @@ bool onkoHuoneVarattu(HuoneVaraukset Varaukset[], int f_varattava_huone, int huo
         }
     }
 
-    // Jos taulukosta ei loydy samaa huonetta varattuna
-    // palautetaan false
+    // Jos taulukosta ei loydy samaa huonetta varattuna palautetaan false
     return false;
 }
 
 
 // Funktio tulostaa syotetyn varauksen tiedot seka laskee varauksen hinnan
-void tulostaVaraus(const HuoneVaraukset &Varaukset){
+void tulostaVaraus(const HuoneVaraukset &Varaukset, float alennus_kerroin){
     
     // Tulostetaan tietueesta huonevarauksen tiedot
     cout << "\tHienoa! Tässä on syottämäsi varauksen tiedot: " << endl << endl;
     cout << "\tVaraajan nimi: " << Varaukset.varaajan_koko_nimi << endl;
     cout << "\tVarausnumero: " << Varaukset.varaus_numero << endl;
     cout << "\tVaratun huoneen numero: " << Varaukset.huoneen_numero << endl;
-    cout << "\tVaratun huoneen koko: " << Varaukset.huone_tyyppi << endl;
+    cout << "\tVaratun huoneen koko: " << Varaukset.huone_tyyppi << " hengen huone" << endl;
     cout << "\tVarauksen kesto: " << Varaukset.varauksen_kesto << " yötä" << endl;
-    cout << "\tVarauksenne loppusumma: " << Varaukset.loppu_summa << " euroa" << endl << endl << endl;
+    cout << "\tVarauksenne loppusumma: " << Varaukset.loppu_summa << " euroa" << endl;
+    
+    // Jos alennus_kerroin ei ole 1 
+    if (alennus_kerroin != 1)
+    {   
+        // Tulostetaan peraan alennuksen maara
+        cout << "\tVarauksenne alennus on " << (1 - alennus_kerroin ) * 100 << "% " << endl << endl;
+    }
 }
 
 
@@ -197,28 +236,46 @@ float randAlennuksenMaara(){
      
 }
 
-// Arvotaan huoneen numero 1 - huoneiden_maara
-int randHuoneenNumero(int huoneiden_maara){
+// Arvotaan kayttajalle huoneen numero 
+int randHuoneenNumero(int huoneiden_maara, int huone_tyyppi){
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
     
     int f_huone_numero = 0;
 
-    // Silmukkaa ajetaan kunnes rand antaa tulokseksi yli 30 ja alle 70
-    do
-    {   
-        // Randin antama tulos jaetaan huoneiden_maara, jonka jakojaannos + 1 asetetaan muuttujaan
-        // jakojaannos + 1, jotta voidaan paasta huoneiden_maara lukuun eika jakojaannos jaa maksimissaan -1 siita
-        f_huone_numero = rand() % huoneiden_maara + 1;
-    
-    // Jos tulos on alle 1 tai yli huoneiden_maara toistetaan silmukka
-    } while (f_huone_numero < 1 || f_huone_numero > huoneiden_maara);
+    // Jos huonetyyppi on 1 eli yhden hengen huone
+    if (huone_tyyppi == 1)
+    {
+        // Silmukkaa ajetaan kunnes jatkuu...
+        do
+        {   
+            // Randin antama tulos jaetaan huoneiden_maara, jonka jakojaannos + 1 asetetaan muuttujaan
+            // jakojaannos + 1, jotta voidaan paasta huoneiden_maara lukuun eika jakojaannos jaa maksimissaan -1 siita
+            f_huone_numero = rand() % huoneiden_maara + 1;
+        
+        // ...jatkuu tulos on alle 1 tai yli huoneiden_maara toistetaan silmukka
+        } while (f_huone_numero < 1 || f_huone_numero > (huoneiden_maara / 2));
 
+    // Jos huonetyyppi on 2 eli kahden hengen huone
+    }else
+    {
+        // Silmukkaa ajetaan kunnes jatkuu...
+        do
+        {   
+            // Randin antama tulos jaetaan huoneiden_maara, jonka jakojaannos + 1 asetetaan muuttujaan
+            // jakojaannos + 1, jotta voidaan paasta huoneiden_maara lukuun eika jakojaannos jaa maksimissaan -1 siita
+            f_huone_numero = rand() % huoneiden_maara + 1;
+        
+        // ...jatkuu tulos on alle huoneiden_maara / 2 tai yli huoneiden_maara toistetaan silmukka
+        } while (f_huone_numero <= (huoneiden_maara / 2) || f_huone_numero > huoneiden_maara);
+
+    }
+    
     // Palautetaan "suodatettu" tulos
     return f_huone_numero;
 }
 
-// Varauksien haku nimella tai varausnumerolla
+// Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
 int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
     int f_varaus_numero;
 
@@ -251,4 +308,93 @@ int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
     } while (f_varaus_numero == 0);
     
     return f_varaus_numero;
+}
+
+// Haetaan varauksia varausnumerolla
+void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_kerroin){
+    int haku_numero = 0, uusi_haku_valinta = 0;
+    bool haku_onnistunut = false;
+
+    cout << "\nHei! ";
+    // Hakuvalinnan silmukka
+    do
+    {
+        cout << "\n\nAnna haettavan varauksen varausnumero\n: ";
+        cin >> haku_numero;
+
+        // Syotteentarkastus. Jos annettu syote ei ole numero, se on alle 10 000
+        // tai yli 99 999, kysytaan kayttajalta syote uudelleen
+        if (cin.fail() || haku_numero < 10000 || haku_numero > 99999)
+        {
+            cout << " \nAntamanne syöte ei ole hyväksytty numero välillä 10 000-99 999" << endl;
+            cout << endl;
+            
+            // Tyhjennetaan syote valimuisti
+            cin.clear();
+            cin.ignore(1000,'\n');
+
+            haku_numero = 0;
+        // Jos syote on oikein
+        } else
+        {
+            // Haetaan taulukosta kyseista varausta
+            for (int i = 0; i < huoneiden_maara; i++)
+            {   
+                // Jos varaus loytyy
+                if (Varaukset[i].varaus_numero == haku_numero)
+                {   
+                    cout << endl;
+                    // Tulostetaan varauksen tiedot
+                    tulostaVaraus(Varaukset[i], alennus_kerroin);
+                    // Asetetaan haku_onnistunut true
+                    haku_onnistunut = true;
+                    // ja poistutaan silmukasta
+                    break;
+                }
+            }
+
+            // Jos haku_onnistunut on false
+            if (haku_onnistunut == false)
+            {
+                // Tulostetaan ettei varauksia ole loytynyt 
+                cout << "\nValitettavasti syotetylla varausnumerolla ei löytynyt yhtäkään varausta. \n";
+                
+            }
+            // Kysytaan haluaako kayttaja jatkaa hakemista
+            do
+            {
+                cout << "\nHaluatteko jatkaa varausten hakemista? \n";
+                cout << "\n#1 Haluan tehdä uuden haun \n#2 Haluan lopettaa varausten hakemisen \n: ";
+                cin >> uusi_haku_valinta;
+                cout << endl;
+
+                // Syotteentarkastus. Jos annettu syote ei ole numero, se on alle 1
+                // tai yli 2, kysytaan kayttajalta syote uudelleen
+                if (cin.fail() || (uusi_haku_valinta < 1 && uusi_haku_valinta > 2))
+                {
+                    cout << " \nAntamanne syöte ei ole hyväksytty numero 1 tai 2 \n\n";
+
+                    // Tyhjennetaan syote valimuisti
+                    cin.clear();
+                    cin.ignore(1000,'\n');
+
+                    uusi_haku_valinta = 0;
+
+                // Jos valinta on 1
+                }else if(uusi_haku_valinta == 1)
+                {   
+                    // Asetetaan alkuperainen haku_numero 0, jolloin ensimmainen valikko silmukka jatkaa
+                    haku_numero = 0;
+                }
+
+                // Jos valinta on 2, poistutaan funktiosta ja paaohjelma jatkaa
+
+            // Jos uusi_haku_valinta on 0, jatketaan silmukkaa
+            } while (uusi_haku_valinta == 0);
+            
+        }
+
+    // Jos haku_numero on 0
+    } while (haku_numero == 0);
+    
 }
