@@ -20,27 +20,34 @@ const int HINTA_KAKSIO = 150;
 // Huonevarauksien tietue
 struct HuoneVaraukset
 {
-    // Sisaltaa nimen, huoneen numeron, varauksen keston oiden maarana
-    // seka varausnumeron
+    // Varaajan antama nimi
     std::string varaajan_koko_nimi = "Tyhjä";
-    int huoneen_numero = 0, varauksen_kesto = 0, 
-    varaus_numero = 0, huone_tyyppi = 0, loppu_summa = 0;
+    // Huoneen numero
+    int huoneen_numero = 0, 
+    // Varauksen kesto oina
+    varauksen_kesto = 0, 
+    // Satunnainen varausnumero valilla 10000-99999
+    varaus_numero = 0, 
+    // Huonetyyppi joko 1 = yhden hengen huone tai 2 = kahden hengen huone
+    huone_tyyppi = 0, 
+    // Loppusumma euroina alennuksen jalkeen
+    loppu_summa = 0;
 };
 
 // Funktioiden prototyypit
 // Tarkistetaan onko syotetty huone jo varattu
 bool onkoHuoneVarattu(HuoneVaraukset [], int f_varattava_huone, int huoneiden_maara);
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
-HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone);
+HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int huoneiden_maara, float alennus_kerroin);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
-void tulostaVaraus(const HuoneVaraukset &Varaukset);
+void tulostaVaraus(const HuoneVaraukset &Varaukset, float alennus_kerroin);
 // Arvotaan parillinen huoneiden maara, valilta HUONE_MAARA_MAX - HUONE_MAARA_MIN
 int randHuoneidenMaara();
 // Arvotaan alennuksen maara 0%, 10% tai 20%
 float randAlennuksenMaara();
 // Arvotaan kayttajalle satunnainen huoneen numero saatavilla olevista huoneista
-int randHuoneenNumero(int huoneiden_maara);
+int randHuoneenNumero(int huoneiden_maara, int huone_tyyppi);
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
 int randVarausNumero(HuoneVaraukset [], int huoneiden_maara);
 // Haetaan varauksia varausnumerolla
-void varausHaku(HuoneVaraukset [], int huoneiden_maara);
+void varausHaku(HuoneVaraukset [], int huoneiden_maara, float alennus_kerroin);
