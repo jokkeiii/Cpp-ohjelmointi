@@ -398,3 +398,33 @@ void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_k
     } while (haku_numero == 0);
     
 }
+
+// Tarkistetaan onko syotetyn huonetyypin huoneita viela vapaana
+bool onkoTyypinHuoneetVarattu(HuoneVaraukset Varaukset[], int huoneiden_maara, int huone_tyyppi){
+
+    // Muuttuja johon lasketaan, montako huonetta huonetyypilla on varattuna
+    int count = 0;
+
+    // Testataan taulukon jokaisen (0-huoneiden_maara) paikan tietueesta 
+    // onko huone_tyyppi sama mika annettiin
+    for (int i = 0; i < huoneiden_maara; i++)
+    {
+        if (Varaukset[i].huone_tyyppi == huone_tyyppi)
+        {
+            // Jos tietueesta loytyy sama huonetyyppi lisataan laskuriin 1
+            count++;
+        } 
+    }
+
+    // Jos laskurin summa on sama kuin huonetyypin huoneiden maara (huoneiden_maara / 2)
+    // on kaikki huonetyypin huoneet varattuna
+    if (count == (huoneiden_maara/2))
+    {   
+        // eli palautetaan true (kaikki huonetyypin huoneet ovat varattuina)
+        return true;
+    // Muuten palautetaan false eli huonetyypin huoneita on viela vapaana
+    } else
+    {
+        return false;
+    }
+}
