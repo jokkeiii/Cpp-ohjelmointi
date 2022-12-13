@@ -36,7 +36,7 @@ struct HuoneVaraukset
 
 // Funktioiden prototyypit
 // Tarkistetaan onko syotetty huone jo varattu
-bool onkoHuoneVarattu(HuoneVaraukset [], int f_varattava_huone, int huoneiden_maara);
+bool onkoHuoneVarattu(HuoneVaraukset Varaukset[], int f_varattava_huone, int huoneiden_maara);
 // Luodaan syotetylle taulukon paikalle tietueeseen varauksen tiedot
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int huoneiden_maara, float alennus_kerroin);
 // Tulostetaan syotetyn taulukon paikan tietueen varauksen tiedot
@@ -48,6 +48,8 @@ float randAlennuksenMaara();
 // Arvotaan kayttajalle satunnainen huoneen numero saatavilla olevista huoneista
 int randHuoneenNumero(int huoneiden_maara, int huone_tyyppi);
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
-int randVarausNumero(HuoneVaraukset [], int huoneiden_maara);
+int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara);
 // Haetaan varauksia varausnumerolla
-void varausHaku(HuoneVaraukset [], int huoneiden_maara, float alennus_kerroin);
+void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_kerroin);
+// Tarkistetaan onko syotetyn huonetyypin huoneita viela vapaana
+bool onkoTyypinHuoneetVarattu(HuoneVaraukset Varaukset[], int huoneiden_maara, int huone_tyyppi);
