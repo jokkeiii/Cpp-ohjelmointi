@@ -51,6 +51,8 @@ int main() {
     int huone_tyyppi_valinta;
     // Huoneennumeron valikkomuuttuja
     char varaus_valinta;
+    // Huonetyyppi saatavuus tarkastamiseen
+    bool kaikki_huoneet_varattu = false;
 
     cout << "Tervetuloa Hotelli Perustolaan!!" << endl;
 
@@ -90,31 +92,51 @@ int main() {
                 // Tyhjennetaan syote valimuisti, jotta edellinen syote ei vuoda seuraavaan syotteeseen
                 cin.clear();
                 cin.ignore(1000,'\n');
-                
-                // Kysytaan kayttajalta huonetyyppi 1 vai 2 hengen huone
+
+                // Testataan onko kaikki huonetyypin huoneet varattuna
                 do
                 {
-
-                    cout << "Haluatteko varata \n\n#1 yhden hengen vai \n#2 kahden hengen huoneen? " << endl;
-                    cout << ": ";
-                    cin >> huone_tyyppi_valinta;
-
-                    // Tarkastetaan, etta syote on numero
-                    if (cin.fail() || (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2))
+                    // Kysytaan kayttajalta huonetyyppi 1 vai 2 hengen huone
+                    do
                     {
-                        // Jos syote ei ole numero
-                        cout << endl << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
-                        cout << endl;
 
-                    }
+                        cout << "Haluatteko varata \n\n#1 yhden hengen vai \n#2 kahden hengen huoneen? " << endl;
+                        cout << ": ";
+                        cin >> huone_tyyppi_valinta;
 
-                    // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
-                    cin.clear();
-                    cin.ignore(1000, '\n');
+                        // Tarkastetaan, etta syote on numero
+                        if (cin.fail() || (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2))
+                        {
+                            // Jos syote ei ole numero
+                            cout << endl << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
+                            cout << endl;
 
-                    // Jos huone_tyyppi_valinta ei ole 1 tai 2 
-                } while (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2);
+                        }
+
+                        // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+
+                        // Jos huone_tyyppi_valinta ei ole 1 tai 2 
+                    } while (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2);
                     
+                    // Tarkastetaan funktiolla ettei jokainen huonetyypin huone ole jo varattuna  
+                    if (onkoTyypinHuoneetVarattu(varaukset, huoneiden_maara, huone_tyyppi_valinta))
+                    {
+                        cout << "\nValitettavasti kaikki " << huone_tyyppi_valinta << " hengen huoneet ovat jo varattuna. \n";
+
+                        // Asetetaan muuttuja true, jota do while testaa
+                        kaikki_huoneet_varattu = true;
+
+                    } else
+                    {
+                        // Asetetaan muuttuja false, jotta voidaan jatkaa ohjelmaa
+                        kaikki_huoneet_varattu = false;
+                    }
+                    
+
+                } while(kaikki_huoneet_varattu);
+
                 // Kyseisen valikon paluumerkki
                 HuoneenNumeroPaatos:
 
