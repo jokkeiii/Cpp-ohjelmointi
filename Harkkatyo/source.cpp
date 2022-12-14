@@ -325,6 +325,7 @@ int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
 
 // Haetaan varauksia varausnumerolla
 void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_kerroin){
+    
     int haku_numero = 0, uusi_haku_valinta = 0;
     bool haku_onnistunut = false;
 
@@ -332,7 +333,10 @@ void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_k
 
     // Hakuvalinnan silmukka
     do
-    {
+    {   
+        // Asetetaan muuttuja lähtöarvoon
+        haku_onnistunut = false;
+
         cout << "\n\nAnna haettavan varauksen varausnumero\n: ";
         cin >> haku_numero;
 
