@@ -44,7 +44,7 @@ int main() {
     // Huonetyyppi saatavuus tarkastamiseen
     bool kaikki_huoneet_varattu = false;
 
-    cout << "Tervetuloa Hotelli Perustolaan!!" << endl << endl;
+    cout << "\nTervetuloa Hotelli Perustolaan!!" << endl << endl;
 
     // Paavalikko
     do{

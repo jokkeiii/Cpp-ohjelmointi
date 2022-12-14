@@ -182,7 +182,11 @@ void tulostaVaraus(const HuoneVaraukset &Varaukset, float alennus_kerroin){
     {   
         // Tulostetaan peraan alennuksen maara
         cout << "\tVarauksenne alennus on " << (1 - alennus_kerroin ) * 100 << "% " << endl << endl;
+    } else
+    {
+        cout << endl;
     }
+    
 }
 
 
