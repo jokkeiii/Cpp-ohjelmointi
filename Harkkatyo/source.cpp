@@ -11,7 +11,6 @@ using std::string;
 using std::getline;
 
 
-
 // Funktiolla luodaan varaus. Viitataan tiedot "main":ssa olevan taulukon "i" tietueeseen
 HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int huoneiden_maara, float alennus_kerroin){
     
@@ -74,6 +73,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int h
         // Palataan kysymaan syote uudelleen
         goto AjanVaraus;
 
+    // Jos syote on ok, tulostetaan annettu varauksen kesto
     }else
     {
         cout << "Kiitoksia! Varauksenne on " << Varaukset.varauksen_kesto << " yötä." << endl << endl;
@@ -81,7 +81,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int h
         cin.ignore(1000,'\n');
     }
 
-    // Kysytaan kayttajalta etu ja sukunimi
+    // Kysytaan kayttajalta nimi
     NimenAnto:
 
     cout << "Millä nimellä varaus tallennetaan? (Antakaa nimenne ilman ääkkösiä!)" << endl << ": ";
@@ -91,6 +91,7 @@ HuoneVaraukset luoVaraus(HuoneVaraukset &Varaukset, int f_varattava_huone, int h
     // Tulostetaan syote ja varmistetaan kayttajalta etta nimi on oikein
     NimiSyote:
 
+    // Kysytaan kayttajalta onko annettu nimi oikein vai haluaako antaa sen uudelleen
     cout << "Kiitoksia! Annoitte nimen: " << Varaukset.varaajan_koko_nimi << endl; 
     cout << "Onko nimi oikein? 1 = Kyllä, 2 = Ei, haluan antaa sen uudelleen. " << endl << ": ";
     cin >> f_valikko;
@@ -187,6 +188,7 @@ void tulostaVaraus(const HuoneVaraukset &Varaukset, float alennus_kerroin){
 
 // Funktio tuottaa satunnaisen huonemaaran valilla 30-70
 int randHuoneidenMaara(){
+    
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
     
@@ -209,6 +211,7 @@ int randHuoneidenMaara(){
 
 // Funktio tuottaa satunnaisen hinnan valilla 80-100
 float randAlennuksenMaara(){
+    
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL)); 
     
@@ -236,8 +239,10 @@ float randAlennuksenMaara(){
      
 }
 
+
 // Arvotaan kayttajalle huoneen numero 
 int randHuoneenNumero(int huoneiden_maara, int huone_tyyppi){
+    
     // Randin siemennys, randin vakio yliajetaan ajasta
     srand(time(NULL));
     
@@ -275,8 +280,10 @@ int randHuoneenNumero(int huoneiden_maara, int huone_tyyppi){
     return f_huone_numero;
 }
 
+
 // Arvotaan syotetylle taulukon paikalle tietueeseen varausnumero
 int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
+
     int f_varaus_numero;
 
     // Randin siemennys, randin vakio yliajetaan ajasta
@@ -304,11 +311,13 @@ int randVarausNumero(HuoneVaraukset Varaukset[], int huoneiden_maara){
                 f_varaus_numero = 0;
             }
         }
+
     // Jos muuttujan arvo on nolla aloitetaan alusta
     } while (f_varaus_numero == 0);
     
     return f_varaus_numero;
 }
+
 
 // Haetaan varauksia varausnumerolla
 void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_kerroin){
@@ -316,6 +325,7 @@ void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_k
     bool haku_onnistunut = false;
 
     cout << "\nHei! ";
+
     // Hakuvalinnan silmukka
     do
     {
@@ -397,4 +407,35 @@ void varausHaku(HuoneVaraukset Varaukset[], int huoneiden_maara, float alennus_k
     // Jos haku_numero on 0
     } while (haku_numero == 0);
     
+}
+
+
+// Tarkistetaan onko syotetyn huonetyypin huoneita viela vapaana
+bool onkoTyypinHuoneetVarattu(HuoneVaraukset Varaukset[], int huoneiden_maara, int huone_tyyppi){
+
+    // Muuttuja johon lasketaan, montako huonetta huonetyypilla on varattuna
+    int count = 0;
+
+    // Testataan taulukon jokaisen (0-huoneiden_maara) paikan tietueesta 
+    // onko huone_tyyppi sama mika annettiin
+    for (int i = 0; i < huoneiden_maara; i++)
+    {
+        if (Varaukset[i].huone_tyyppi == huone_tyyppi)
+        {
+            // Jos tietueesta loytyy sama huonetyyppi lisataan laskuriin 1
+            count++;
+        } 
+    }
+
+    // Jos laskurin summa on sama kuin huonetyypin huoneiden maara (huoneiden_maara / 2)
+    // on kaikki huonetyypin huoneet varattuna
+    if (count == (huoneiden_maara/2))
+    {   
+        // eli palautetaan true (kaikki huonetyypin huoneet ovat varattuina)
+        return true;
+    // Muuten palautetaan false eli huonetyypin huoneita on viela vapaana
+    } else
+    {
+        return false;
+    }
 }

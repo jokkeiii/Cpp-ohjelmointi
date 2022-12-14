@@ -14,15 +14,6 @@ using std::string;
 using std::getline;
 
 
-/* TODO
-
-    varausten lopettaminen, kun kaikki huonetyypin huoneet ovat jo varattu
-
-    lopuksi poista debug coutit alusta
-
-*/
-
-
 int main() {
     // Otetaan ääkköset tulosteessa kayttoon
     setlocale(LC_ALL, "fi_FI");
@@ -31,28 +22,29 @@ int main() {
     // huoneiden_maara on parillinen luku valilta 40-300,
     // joka maaraa kaytettavissa olevat huoneet
     int huoneiden_maara = randHuoneidenMaara();
-
+    
     // alennus_kerroin on varauksen loppusummaan tuleva alennus
     // Se voi olla 1 eli ei alennusta, 0,9 eli 10% alennus
     //  tai 0,8 eli 20% alennus
     float alennus_kerroin = randAlennuksenMaara();
 
-    // Debuggaamista varten, muista poistaa
-    cout << endl << "Huoneiden määrä on " << huoneiden_maara << endl << endl;
-    cout << "Alennuskerroin on " << alennus_kerroin << endl << endl;
-
+ 
     // Taulukko tietueesta
     HuoneVaraukset varaukset[HUONEIDEN_MAARA_MAX];
     // varattava_huone syotetta varten
-    int varattava_huone, count = 0; 
+    int varattava_huone, 
+    // Laskuri tietueiden taulukosta paikantamista varten
+    count = 0; 
     // Paavalikon muuttuja
     int valikko;
     // Huonetyypin valinta
     int huone_tyyppi_valinta;
     // Huoneennumeron valikkomuuttuja
     char varaus_valinta;
+    // Huonetyyppi saatavuus tarkastamiseen
+    bool kaikki_huoneet_varattu = false;
 
-    cout << "Tervetuloa Hotelli Perustolaan!!" << endl;
+    cout << "Tervetuloa Hotelli Perustolaan!!" << endl << endl;
 
     // Paavalikko
     do{
@@ -76,9 +68,12 @@ int main() {
             // Tyhjennetaan syote valimuisti, jotta vaara syote ei tuota silmukkaa
             cin.clear();
             cin.ignore(1000,'\n');
-        
+
+            // Asetetaan muuttujaan numero, jotta silmukka pyorahtaa alusta
+            valikko = 5;
+
         // Jos syote on numero
-        }else 
+        } else 
         {
         
             // Paavalikko testit
@@ -91,30 +86,63 @@ int main() {
                 cin.clear();
                 cin.ignore(1000,'\n');
                 
-                // Kysytaan kayttajalta huonetyyppi 1 vai 2 hengen huone
+                // Tarkastetaan ettei jokainen huone ole jo varattuna 
+                // Jos count on yhta suuri kuin huoneiden_maara tiedetaan
+                // etta kaikki huoneet on jo varattu
+                if (count == huoneiden_maara)
+                {   
+                    // Jos kaikki huoneet ovat varattuna 
+                    cout << "\nValitettavasti kaikki huoneet ovat jo varattuna. \n\n";
+                    cout << "\nVoitte edelleen jatkaa huonevarausten tarkastelua. \n\n";
+
+                    // Poistutaan switchista
+                    break;
+                }
+                
+                // Testataan onko kaikki huonetyypin huoneet varattuna
                 do
                 {
-
-                    cout << "Haluatteko varata \n\n#1 yhden hengen vai \n#2 kahden hengen huoneen? " << endl;
-                    cout << ": ";
-                    cin >> huone_tyyppi_valinta;
-
-                    // Tarkastetaan, etta syote on numero
-                    if (cin.fail() || (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2))
+                    // Kysytaan kayttajalta huonetyyppi 1 vai 2 hengen huone
+                    do
                     {
-                        // Jos syote ei ole numero
-                        cout << endl << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
-                        cout << endl;
 
-                    }
+                        cout << "Haluatteko varata \n\n#1 yhden hengen vai \n#2 kahden hengen huoneen? " << endl;
+                        cout << ": ";
+                        cin >> huone_tyyppi_valinta;
 
-                    // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
-                    cin.clear();
-                    cin.ignore(1000, '\n');
+                        // Tarkastetaan, etta syote on numero
+                        if (cin.fail() || (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2))
+                        {
+                            // Jos syote ei ole numero
+                            cout << endl << "Valitettavasti valitsemanne valinta ei ole käytössä." << endl;
+                            cout << endl;
 
-                    // Jos huone_tyyppi_valinta ei ole 1 tai 2 
-                } while (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2);
+                        }
+
+                        // Tyhjennetaan syote valimuisti, jotta edellinen syote ei tuota silmukkaa
+                        cin.clear();
+                        cin.ignore(1000, '\n');
+
+                        // Jos huone_tyyppi_valinta ei ole 1 tai 2 
+                    } while (huone_tyyppi_valinta != 1 && huone_tyyppi_valinta != 2);
                     
+                    // Tarkastetaan funktiolla ettei jokainen huonetyypin huone ole jo varattuna  
+                    if (onkoTyypinHuoneetVarattu(varaukset, huoneiden_maara, huone_tyyppi_valinta))
+                    {
+                        cout << "\nValitettavasti kaikki " << huone_tyyppi_valinta << " hengen huoneet ovat jo varattuna. \n\n";
+
+                        // Asetetaan muuttuja true, jota do while testaa
+                        kaikki_huoneet_varattu = true;
+
+                    } else
+                    {
+                        // Asetetaan muuttuja false, jotta voidaan jatkaa ohjelmaa
+                        kaikki_huoneet_varattu = false;
+                    }
+                    
+
+                } while(kaikki_huoneet_varattu);
+
                 // Kyseisen valikon paluumerkki
                 HuoneenNumeroPaatos:
 
@@ -241,7 +269,7 @@ int main() {
                         cout << "Valitettavasti huone " << varattava_huone << " on jo varattu." << endl;
                         cout << endl;
 
-                        // Palataan merkkiin varaus
+                        // Palataan merkkiin KayttajaVaraus
                         goto KayttajaVaraus;
                     }
                     
@@ -254,9 +282,10 @@ int main() {
                     // Goto arpafunktio valitsee huoneen numeron
                     KoneVaraus:
 
+                    // Kutsutaan funktiota ja asetetaan paluuarvo muuttujaan
                     varattava_huone = randHuoneenNumero(huoneiden_maara, huone_tyyppi_valinta);
  
-                    // Jos funktio palauttaa true, eli huone on varattu
+                    // Testataan kutsumalla funktiota onko huone jo varattu
                     if(onkoHuoneVarattu(varaukset, varattava_huone, huoneiden_maara))
                     {
                         // Jos huone on varattu palataan merkkiin varaus
@@ -301,7 +330,7 @@ int main() {
                 // jos count = 0, ei varauksia ole tehty
                 if (count == 0)
                 {
-                    cout << "Yhtäkään varausta ei ole vielä tehty! " << endl << endl;
+                    cout << "\nYhtäkään varausta ei ole vielä tehty! \n\n";
 
                 // Jos varauksia on jo tehty kutsutaan funktiota, jolla kayttaja voi hakea varauksia
                 } else
