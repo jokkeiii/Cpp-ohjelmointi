@@ -1,5 +1,5 @@
-# Cpp-ohjelmointi
-Ohjelmoinnin kursseilta sekä vapaa-ajalta kertyneitä c++ koodinpätkiä
+# Cpp-ohjelmoinnin-perusteet
+C++ ohjelmoinnin perusteet kurssilta sekä vapaa-ajalta kertyneitä c++ koodinpätkiä
 
 C++ source-tiedostoina luodut koodipätkät ja pienet cmd-ohjelmat.
 
